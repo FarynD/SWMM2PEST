@@ -1,0 +1,10 @@
+D:\Code\SWMM2PEST\SWMM2PEST\bin\Debug\SWMM2PEST.exe.config
+D:\Code\SWMM2PEST\SWMM2PEST\bin\Debug\SWMM2PEST.exe
+D:\Code\SWMM2PEST\SWMM2PEST\bin\Debug\SWMM2PEST.pdb
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.csprojAssemblyReference.cache
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.Form1.resources
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.Properties.Resources.resources
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.csproj.GenerateResource.cache
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.csproj.CoreCompileInputs.cache
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.exe
+D:\Code\SWMM2PEST\SWMM2PEST\obj\Debug\SWMM2PEST.pdb

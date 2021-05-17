@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWMM2PEST", "SWMM2PEST\SWMM2PEST.csproj", "{62FF59CD-E018-40D2-85F0-939EC4295904}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62FF59CD-E018-40D2-85F0-939EC4295904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62FF59CD-E018-40D2-85F0-939EC4295904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62FF59CD-E018-40D2-85F0-939EC4295904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62FF59CD-E018-40D2-85F0-939EC4295904}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A375778-AE9A-4301-9D97-D13FBC9D3085}
+	EndGlobalSection
+EndGlobal

@@ -19,6 +19,7 @@ namespace SWMM2PEST
         {
             InitializeComponent();
             createComponentsTree();
+            
         }
 
         
@@ -56,11 +57,7 @@ namespace SWMM2PEST
 
             string sub1 = "sub1";
             string sub2 = "sub2";
-            subs = new string[] { sub1, sub2 };
-
-            
-
-            
+            subs = new string[] { sub1, sub2 };         
         }
     }
 }

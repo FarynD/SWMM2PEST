@@ -14,7 +14,7 @@ namespace SWMM2PEST
         string name;
         double area;
         double width;
-        int percentSlope;
+        double percentSlope;
         //Subareas
         double percentImperv;
         double NImperv; //Impervious area roughness
@@ -28,7 +28,7 @@ namespace SWMM2PEST
         int IMD; //Initial moisture deficiet
         //LIDS
         ArrayList LIDs;
-        public Subcatchments(string aName, double aArea, double aWidth, int aPercentSlope, double aPercentImperv, double aNImperv, double aNPerv, double aSImperv, double aSPerv, double aPercentZeroImperv, double aSuction, double aKsat, int aIMD)
+        public Subcatchments(string aName, double aArea, double aWidth, double aPercentSlope, double aPercentImperv, double aNImperv, double aNPerv, double aSImperv, double aSPerv, double aPercentZeroImperv, double aSuction, double aKsat, int aIMD)
         {
             name = aName;
             area = aArea;
@@ -45,20 +45,21 @@ namespace SWMM2PEST
             LIDs = new ArrayList();
         }
 
-        public string Name { get => name; }
-        public double Area { get => area; }
-        public double Width { get => width; }
-        public int PercentSlope { get => percentSlope; }
-        public double PercentImperv { get => percentImperv; }
-        public double NImperv1 { get => NImperv; }
-        public double NPerv1 { get => NPerv; }
-        public double SImperv1 { get => SImperv; }
-        public double SPerv1 { get => SPerv; }
-        public double PercentZeroImperv { get => percentZeroImperv; }
-        public double Suction { get => suction; }
-        public double Ksat { get => ksat; }
-        public int IMD1 { get => IMD; }
-        public ArrayList LIDs1 { get => LIDs; }
+
+        public string getName() { return name; }
+        public double getArea() { return area; }
+        public double getWidth() { return width; }
+        public double getPercentSlope() { return percentSlope; }
+        public double getPercentImperv() { return percentImperv; }
+        public double getNImperv() { return NImperv; }
+        public double getNPerv() { return NPerv; }
+        public double getSImperv() { return SImperv; }
+        public double getSPerv() { return SPerv; }
+        public double getPercentZeroImperv() { return percentZeroImperv; }
+        public double getSuction() { return suction; }
+        public double getKsat() { return ksat; }
+        public double getIMD() { return IMD; }
+        public ArrayList getLIDs() { return LIDs; }
 
         public void addLID(LID_Controls LID)
         {

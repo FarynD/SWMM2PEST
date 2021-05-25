@@ -1,0 +1,106 @@
+#PCSWMM project file
+#Please do not edit
+[Project Summary]
+Compute Time=n/a
+Routing Error=n/a
+Runoff Error=n/a
+[GIS]
+VisibleExtent.XMax=10709.3703696682
+VisibleExtent.XMin=-1182.53036966825
+VisibleExtent.YMax=8636.82061137441
+VisibleExtent.YMin=1321.06938862559
+[General]
+Map EPSG=32611
+CS Name=WGS 84 UTM zone 11N
+Auto-Length=False
+Version=2
+Pathway Priority=0
+Last Access=05/19/2020 4:50:35 PM
+Last Access Shape=02/10/2021 10:45:32 AM
+PCSWMM.NET Version=7.3.3095
+SWMM5 Version=5.1.015
+Profile Groups=
+Table Groups=
+Graph Groups=
+Detail Scenario=nComboBox1
+Detail Bookmark=Top of File
+Detail Style=Full
+Status Scenario=nComboBox1
+Status Bookmark=Top of File
+Status Style=Full
+[Layers]
+layer0=Subcatchments.shp
+layer1=Outlets.shp
+layer2=Weirs.shp
+layer3=Orifices.shp
+layer4=Pumps.shp
+layer5=Conduits.shp
+layer6=Storages.shp
+layer7=Dividers.shp
+layer8=Outfalls.shp
+layer9=Junctions.shp
+[Labels]
+WEIR_Coeff=3.33
+[Graph]
+Plotting Position=Gringorten
+[Defaults]
+SUBCATCH_FLOWLENGTH=0
+[Authors]
+Author0=simon.michelle@epa.gov,44237.4482966898
+
+[Animation]
+Hide non_SWMM5 layers=False
+[Map Options]
+Arrow Style=Filled
+Include 2D links=False
+Arrow Size=10
+Draw Transect=False
+Transect Color=-16744448
+Show POI=False
+Flooding Analysis=False
+[Flood Analysis]
+Override FVA=True
+Length=200
+MinLength=200
+interval=100
+Spacing=1
+Use CrossPt=False
+Minimum Length=0
+Fixed Depth=10
+Use Filter=3
+Straigtening=5
+Flow Lines=4
+Smooth Flow Path=True
+Space Factor=2
+Straigtening2=8
+Output To Layer=False
+Join Lines=False
+[2D]
+2DModeling=False
+Velocity On=True
+[Erosion]
+ErosionOn=False
+Use C TS=False
+Calculate LS=False
+Use TSS=False
+[Desbordes]
+Abattement=1
+Xlag=0.8
+Alternative Runoff=False
+[Google]
+KML Type=One
+Tilt=45
+Heading=0
+Range=15801.5
+LookAt X=0
+LookAt Y=0
+Range Type=0
+Include Xsection=False
+Include POI=False
+
+[UN_Junctions]
+
+[UN_Outfalls]
+
+[UN_Conduits]
+

@@ -45,6 +45,11 @@ namespace SWMM2PEST
             LIDs = new ArrayList();
         }
 
+        public Subcatchments()
+        {
+
+        }
+
 
         public string getName() { return name; }
         public double getArea() { return area; }
@@ -61,6 +66,20 @@ namespace SWMM2PEST
         public double getIMD() { return IMD; }
         public ArrayList getLIDs() { return LIDs; }
 
+        public void setName(string aName) { name = aName; }
+        public void setArea(double aArea) { aArea = area; }
+        public void setWidth(double aWidth) { width = aWidth; }
+        public void setPercentSlope(double aPercentSlope) { percentSlope= aPercentSlope; }
+        public void setPercentImperv(double aPercentImperv) { percentImperv = aPercentImperv; }
+        public void setNImperv(double aNImperv) { NImperv = aNImperv; }
+        public void setNPerv(double aNPerv) { NPerv = aNPerv; }
+        public void setSImperv(double aSImperv) { SImperv = aSImperv; }
+        public void setSPerv(double aSPerv) {  SPerv = aSPerv; }
+        public void setPercentZeroImperv(double aPercentZeroImperv) {  percentZeroImperv = aPercentZeroImperv; }
+        public void setSuction(double aSuction) {  suction = aSuction; }
+        public void setKsat(double aKsat) {  ksat = aKsat; }
+        public void setIMD(int aIMD) { IMD = aIMD; }
+       
         public void addLID(LID_Controls LID)
         {
             LIDs.Add(LID);

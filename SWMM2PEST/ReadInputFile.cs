@@ -19,7 +19,10 @@ namespace SWMM2PEST
             fileLocation = aFileLocation;
             subcatchments = new List<Subcatchments>();
             LIDs = new ArrayList();
+            readFile();
         }
+
+        public List<Subcatchments> GetSubcatchments() { return subcatchments; }
 
         private void readFile()
         {
@@ -52,21 +55,43 @@ namespace SWMM2PEST
                     }
                 }
                 if (line == "[SUBAREAS]")
-                {
-                    line = sr.ReadLine();
-                    line = sr.ReadLine();
+                {                   
+                    line = sr.ReadLine();                    
+                    line = sr.ReadLine();                    
                     line = sr.ReadLine(); //skip down two lines
                     num = 0;  
 
                     while (line != " " && line != "")
                     {
                         splitLine = splitString(line, ' ');
+
+                        Console.WriteLine(splitLine[0]);
                         
-                        subcatchments[num].setName(splitLine[0]);
-                        subcatchments[num].setArea(Convert.ToDouble(splitLine[3]));
-                        subcatchments[num].setPercentImperv(Convert.ToDouble(splitLine[4]));
-                        subcatchments[num].setWidth(Convert.ToDouble(splitLine[5]));
-                        subcatchments[num].setPercentSlope(Convert.ToDouble(splitLine[6]));
+                        subcatchments[num].setNImperv(Convert.ToDouble(splitLine[1]));
+                        subcatchments[num].setNPerv(Convert.ToDouble(splitLine[2]));
+                        subcatchments[num].setSImperv(Convert.ToDouble(splitLine[3]));
+                        subcatchments[num].setSPerv(Convert.ToDouble(splitLine[4]));
+                        subcatchments[num].setPercentZeroImperv(Convert.ToDouble(splitLine[5]));
+                        line = sr.ReadLine();
+                        num++;
+                    }
+                }
+                if (line == "[INFILTRATION]")
+                {
+                    line = sr.ReadLine();
+                    line = sr.ReadLine();
+                    line = sr.ReadLine(); //skip down two lines
+                    num = 0;
+
+                    while (line != " " && line != "")
+                    {
+                        splitLine = splitString(line, ' ');
+
+                        
+                        subcatchments[num].setSuction(Convert.ToDouble(splitLine[1]));
+                        subcatchments[num].setKsat(Convert.ToDouble(splitLine[2]));
+                        subcatchments[num].setIMD(Convert.ToInt32(splitLine[3]));
+                        
                         line = sr.ReadLine();
                         num++;
                     }

@@ -24,14 +24,84 @@ namespace SWMM2PEST
             subs = new List<Subcatchments>();
             
         }
+        private void createParameterEditSub(Subcatchments sub)
+        {
+            Label areaLabel = new Label();
+            Label widthLabel = new Label();
+            Label percentSlopeLabel = new Label();
+            Label percentImpervLabel = new Label();
+            Label NImpervLabel = new Label();
+            Label NPervLabel = new Label();
+            Label SImpervLabel = new Label();
+            Label SPervLabel = new Label();
+            Label PercentZeroImpervLabel = new Label();
+            Label suctionLabel = new Label();
+            Label ksatLabel = new Label();
+            Label IMDLabel = new Label();
 
+            areaLabel.Text = "Area";
+            widthLabel.Text = "Width";
+            percentSlopeLabel.Text = "Percent Slope";
+            percentImpervLabel.Text = "Percent Impervious";
+            NImpervLabel.Text = "Impervious Area Roughness";
+            NPervLabel.Text = "Pervious Area Roughness";
+            SImpervLabel.Text = "Impervious Area Depression Storage";
+            SPervLabel.Text = "Pervious Area Depression Storage";
+            PercentZeroImpervLabel.Text = "Percent of Impervious Area with No Depression Storage";
+            suctionLabel.Text = "Suction";
+            ksatLabel.Text = "Hydraulic Conductivitiy";
+            IMDLabel.Text = "Initial Moisture Deficiet";
 
+            TextBox areaTextBox = new TextBox();
+            TextBox widthTextBox = new TextBox();
+            TextBox percentSlopeTextBox = new TextBox();
+            TextBox percentImpervTextBox = new TextBox();
+            TextBox NImpervTextBox = new TextBox();
+            TextBox NPervTextBox = new TextBox();
+            TextBox SImpervTextBox = new TextBox();
+            TextBox SPervTextBox = new TextBox();
+            TextBox PercentZeroImpervTextBox = new TextBox();
+            TextBox suctionTextBox = new TextBox();
+            TextBox ksatTextBox = new TextBox();
+            TextBox IMDTextBox = new TextBox();
 
+            areaTextBox.Enabled = false;
+            widthTextBox.Enabled = false;
+            percentSlopeTextBox.Enabled = false;
+            percentImpervTextBox.Enabled = false;
+            NImpervTextBox.Enabled = false;
+            NPervTextBox.Enabled = false;
+            SImpervTextBox.Enabled = false;
+            SPervTextBox.Enabled = false;
+            PercentZeroImpervTextBox.Enabled = false;
+            suctionTextBox.Enabled = false;
+            ksatTextBox.Enabled = false;
+            IMDTextBox.Enabled = false;
+
+            areaTextBox.Text = Convert.ToString(sub.getArea());
+            widthTextBox.Text = Convert.ToString(sub.getWidth());
+            percentSlopeTextBox.Text = Convert.ToString(sub.getPercentSlope());
+            percentImpervTextBox.Text = Convert.ToString(sub.getPercentImperv());
+            NImpervTextBox.Text = Convert.ToString(sub.getNImperv());
+            NPervTextBox.Text = Convert.ToString(sub.getNPerv());
+            SImpervTextBox.Text = Convert.ToString(sub.getSImperv());
+            SPervTextBox.Text = Convert.ToString(sub.getSPerv());
+            PercentZeroImpervTextBox.Text = Convert.ToString(sub.getPercentZeroImperv());
+            suctionTextBox.Text = Convert.ToString(sub.getSuction());
+            ksatTextBox.Text = Convert.ToString(sub.getKsat());
+            IMDTextBox.Text = Convert.ToString(sub.getIMD());
+
+            Console.WriteLine("panel");
+            flowLayoutPanel1.Controls.Add(areaLabel);
+            flowLayoutPanel1.Controls.Add(areaTextBox);
+            //flowLayoutPanel1.Update();
+
+        }
         private void createComponentsTree()
         {
             treeView1.Nodes.Clear();
             if (subs != null)
-            { 
+            {
                 TreeNode[] nodeSubs = new TreeNode[subs.Count];
                 for (int x = 0; x < subs.Count; x++)
                 {
@@ -52,20 +122,10 @@ namespace SWMM2PEST
                 treeView1.Nodes.Add(treeNode);
             }
         }
-        /*
-        private void testData()
-        {
-            string lid1 = "lid1";
-            string lid2 = "lid2";
-            string lid3 = "lid3";
-            string lid4 = "lid4";
-            lids = new string[] { lid1, lid2, lid3, lid4 };
 
-            string sub1 = "sub1";
-            string sub2 = "sub2";
-            subs = new string[] { sub1, sub2 };         
-        }
-        */
+        //-------------------------------------------
+        //Events
+        //-------------------------------------------
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -80,6 +140,21 @@ namespace SWMM2PEST
 
             }
             createComponentsTree();
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Console.WriteLine(e.Node.Text); //what node has been clicked on.
+            if (e.Node.Parent != null)
+            {
+                Console.WriteLine(e.Node.Parent.Text); //Parent Node.
+                if (e.Node.Parent.Text == "Subcatchments")
+                {
+                    Subcatchments currentsub = subs.Find(subs => subs.getName() == e.Node.Text);
+                    createParameterEditSub(currentsub);
+                }
+            }
+            
         }
     }
 }

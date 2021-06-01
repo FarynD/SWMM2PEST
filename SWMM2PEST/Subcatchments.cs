@@ -70,7 +70,7 @@ namespace SWMM2PEST
         public ArrayList getLIDs() { return LIDs; }
 
         public void setName(string aName) { name = aName; }
-        public void setArea(double aArea) { aArea = area; }
+        public void setArea(double aArea) { area = aArea; }
         public void setWidth(double aWidth) { width = aWidth; }
         public void setPercentSlope(double aPercentSlope) { percentSlope= aPercentSlope; }
         public void setPercentImperv(double aPercentImperv) { percentImperv = aPercentImperv; }

@@ -26,6 +26,8 @@ namespace SWMM2PEST
         }
         private void createParameterEditSub(Subcatchments sub)
         {
+            flowLayoutPanel1.Controls.Clear();
+
             Label areaLabel = new Label();
             Label widthLabel = new Label();
             Label percentSlopeLabel = new Label();
@@ -90,11 +92,57 @@ namespace SWMM2PEST
             suctionTextBox.Text = Convert.ToString(sub.getSuction());
             ksatTextBox.Text = Convert.ToString(sub.getKsat());
             IMDTextBox.Text = Convert.ToString(sub.getIMD());
-
-            Console.WriteLine("panel");
+            
             flowLayoutPanel1.Controls.Add(areaLabel);
+            flowLayoutPanel1.SetFlowBreak(areaLabel, true);
             flowLayoutPanel1.Controls.Add(areaTextBox);
-            //flowLayoutPanel1.Update();
+            flowLayoutPanel1.SetFlowBreak(areaTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(widthLabel);
+            flowLayoutPanel1.SetFlowBreak(widthLabel, true);
+            flowLayoutPanel1.Controls.Add(widthTextBox);
+            flowLayoutPanel1.SetFlowBreak(widthTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(percentSlopeLabel);
+            flowLayoutPanel1.Controls.Add(percentSlopeTextBox);
+            flowLayoutPanel1.SetFlowBreak(percentSlopeTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(percentImpervLabel);
+            flowLayoutPanel1.Controls.Add(percentImpervTextBox);
+            flowLayoutPanel1.SetFlowBreak(percentImpervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(NImpervLabel);
+            flowLayoutPanel1.Controls.Add(NImpervTextBox);
+            flowLayoutPanel1.SetFlowBreak(NImpervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(NPervLabel);
+            flowLayoutPanel1.Controls.Add(NPervTextBox);
+            flowLayoutPanel1.SetFlowBreak(NPervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(SImpervLabel);
+            flowLayoutPanel1.Controls.Add(SImpervTextBox);
+            flowLayoutPanel1.SetFlowBreak(SImpervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(SPervLabel);
+            flowLayoutPanel1.Controls.Add(SPervTextBox);
+            flowLayoutPanel1.SetFlowBreak(SPervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(PercentZeroImpervLabel);
+            flowLayoutPanel1.Controls.Add(PercentZeroImpervTextBox);
+            flowLayoutPanel1.SetFlowBreak(PercentZeroImpervTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(suctionLabel);
+            flowLayoutPanel1.Controls.Add(suctionTextBox);
+            flowLayoutPanel1.SetFlowBreak(suctionTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(ksatLabel);
+            flowLayoutPanel1.Controls.Add(ksatTextBox);
+            flowLayoutPanel1.SetFlowBreak(ksatTextBox, true);
+
+            flowLayoutPanel1.Controls.Add(IMDLabel);
+            flowLayoutPanel1.Controls.Add(IMDTextBox);
+            flowLayoutPanel1.SetFlowBreak(IMDTextBox, true);
+
 
         }
         private void createComponentsTree()
@@ -123,6 +171,11 @@ namespace SWMM2PEST
             }
         }
 
+        private void clearAll()
+        {
+            flowLayoutPanel1.Controls.Clear();
+        }
+
         //-------------------------------------------
         //Events
         //-------------------------------------------
@@ -134,10 +187,10 @@ namespace SWMM2PEST
             openFileDialog1.Title = "Open Input file";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                clearAll();
                 fileName = openFileDialog1.FileName;
                 ReadInputFile rif = new ReadInputFile(fileName);
                 subs = rif.GetSubcatchments();
-
             }
             createComponentsTree();
         }
@@ -151,6 +204,7 @@ namespace SWMM2PEST
                 if (e.Node.Parent.Text == "Subcatchments")
                 {
                     Subcatchments currentsub = subs.Find(subs => subs.getName() == e.Node.Text);
+                    
                     createParameterEditSub(currentsub);
                 }
             }

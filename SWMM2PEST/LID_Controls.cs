@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SWMM2PEST
 {
     class LID_Controls
-    { 
+    {
+        string name;
         //Parameters from page 291 of "Storm Water Management Model User's Manual Version 5"
-        protected double[] surface; //Arr holding all surface parameters: [StorHt, VegFrac, Rough, Slope, Xslope] 
-        protected double[] soil; //Arr holding all soil parameters: [Thick, Vration,FracImp,Perm, Vclog]
-        protected double[] pavement; //arr holding all pavement parameters: [Thick, Vration, FracImp, Perm, Vclog]
-        protected double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
-        protected double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay]
-        protected double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
+        double[] surface; //Arr holding all surface parameters: [StorHt, VegFrac, Rough, Slope, Xslope] 
+        double[] soil; //Arr holding all soil parameters: [Thick, Vration,FracImp,Perm, Vclog]
+        double[] pavement; //arr holding all pavement parameters: [Thick, Vration, FracImp, Perm, Vclog]
+        double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
+        double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay]
+        double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
         //LID usage. Parameters taken from Swmm input files.
-        protected double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
-        
+        double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
+        string type;
 
+        public string getName() { return name; }
         public double[] getSurface()
         {
             return surface;
@@ -53,13 +56,34 @@ namespace SWMM2PEST
             return LIDUsage;
         }
 
+        public string getType() { return type; }
+
         public bool haveLIDUsage()
         { 
             if( LIDUsage == null) { return false; }
             return true;
         }
+
+        public void setName(string aName) { name = aName; }
+
+        public void setSurface(double[] aSurface) { surface = aSurface; }
+
+        public void  setSoil(double[] aSoil) { soil = aSoil; }
+
+        public void setPavement(double[] aPavement) { pavement = aPavement; }
+
+        public void setStorage(double[] aStorage) { storage = aStorage; }
+
+        public void setDrain(double[] aDrain) { drain = aDrain; }
+
+        public void setDrainmat(double[] aDrainmat) { drainmat = aDrainmat; }
+
+        public void setLIDUsage(double[] aLIDUsage) { LIDUsage = aLIDUsage; }
+
+        public void setType(string aType) { type = aType; }
     }
 
+    /*
     class BioRetention : LID_Controls
     {
         public BioRetention(double[] aSurface, double[] aSoil, double[] aStorage, double[] aDrain)
@@ -196,6 +220,6 @@ namespace SWMM2PEST
         }
     }
 
-
+    */
 
 }

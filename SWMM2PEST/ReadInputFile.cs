@@ -13,12 +13,12 @@ namespace SWMM2PEST
     {
         string fileLocation;
         List<Subcatchments> subcatchments;
-        ArrayList LIDs;
+        List <LID_Controls>LIDs;
         public ReadInputFile(string aFileLocation)
         {
             fileLocation = aFileLocation;
             subcatchments = new List<Subcatchments>();
-            LIDs = new ArrayList();
+            LIDs = new List<LID_Controls>();
             readFile();
         }
 
@@ -92,6 +92,59 @@ namespace SWMM2PEST
                         subcatchments[num].setKsat(Convert.ToDouble(splitLine[2]));
                         subcatchments[num].setIMD(Convert.ToInt32(splitLine[3]));
                         
+                        line = sr.ReadLine();
+                        num++;
+                    }
+                }
+                if (line == "[LID_CONTROLS]")
+                {
+                    line = sr.ReadLine();
+                    line = sr.ReadLine();
+                    line = sr.ReadLine(); //skip down two lines
+                    num = 0;
+
+                    while (line != " " && line != "")
+                    {
+                        splitLine = splitString(line, ' ');
+                        if (splitLine.Length == 2)
+                        {
+                            LIDs[num].setName(splitLine[0]);
+                            LIDs[num].setType(splitLine[1]);
+                        }
+                        else if (splitLine[1] == "BC") //BioRetention
+                        {
+
+                        }
+                        else if (splitLine[1] == "RG") //Rain Garden
+                        { 
+                        
+                        }
+                        else if (splitLine[1] == "GR") //GreenRoof
+                        {
+
+                        }
+                        else if (splitLine[1] == "IT") //InfiltrationTrench
+                        {
+
+                        }
+                        else if (splitLine[1] == "PP") //Permeable Pavement
+                        {
+
+                        }
+                        else if (splitLine[1] == "RB") //Rain Barrel
+                        {
+
+                        }
+                        else if (splitLine[1] == "RD") //Rooftop Disconnection
+                        {
+
+                        }
+                        else if (splitLine[1] == "VS") //Vegetative Swale
+                        {
+
+                        }
+
+
                         line = sr.ReadLine();
                         num++;
                     }

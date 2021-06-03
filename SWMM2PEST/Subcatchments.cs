@@ -28,32 +28,8 @@ namespace SWMM2PEST
         int IMD; //Initial moisture deficiet
         //LIDS
         ArrayList LIDs;
-        /*
-        public Subcatchments(string aName, double aArea, double aWidth, double aPercentSlope, double aPercentImperv, double aNImperv, double aNPerv, double aSImperv, double aSPerv, double aPercentZeroImperv, double aSuction, double aKsat, int aIMD)
-        {
-            name = aName;
-            area = aArea;
-            width = aWidth;
-            percentSlope = aPercentSlope;
-            percentImperv = aPercentImperv;
-            NImperv = aNImperv;
-            SImperv = aSImperv;
-            SPerv = aSPerv;
-            percentZeroImperv = aPercentZeroImperv;
-            suction = aSuction;
-            ksat = aKsat;
-            IMD = aIMD;
-            LIDs = new ArrayList();
-        }
+
         
-
-        public Subcatchments()
-        {
-
-        }
-        */
-
-
         public string getName() { return name; }
         public double getArea() { return area; }
         public double getWidth() { return width; }

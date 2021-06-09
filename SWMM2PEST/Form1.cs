@@ -15,14 +15,31 @@ namespace SWMM2PEST
     {
 
         List<Subcatchments> subs;
-        string[] lids;
+        List<LID_Controls> lids;
         string fileName;
         public Form1()
         {
             InitializeComponent();
             createComponentsTree();
             subs = new List<Subcatchments>();
+            lids = new List<LID_Controls>();
             
+        }
+        private void createParameterEditLID(LID_Controls lid)
+        {
+            if (lid.getType() == "BC")
+            {
+
+            }
+            else if (lid.getType() == "RG")
+            {
+
+            }
+            else if (lid.getType() == "IT")
+            { 
+            
+            }
+
         }
         private void createParameterEditSub(Subcatchments sub)
         {
@@ -155,17 +172,17 @@ namespace SWMM2PEST
                 {
                     nodeSubs[x] = new TreeNode(subs[x].getName());
                 }
-                /*
-                TreeNode[] nodeLID = new TreeNode[lids.Length];
-                for (int x = 0; x < lids.Length; x++)
+                
+                TreeNode[] nodeLID = new TreeNode[lids.Count];
+                for (int x = 0; x < lids.Count; x++)
                 {
-                    nodeLID[x] = new TreeNode(lids[x]);
+                    nodeLID[x] = new TreeNode(lids[x].getName());
                 }
-                */
+                
 
                 TreeNode subcatchment = new TreeNode("Subcatchments", nodeSubs);
-                //TreeNode LID_Controls = new TreeNode("LID Controls", nodeLID);
-                TreeNode[] Hydrology = new TreeNode[] { subcatchment };
+                TreeNode LID = new TreeNode("LID Controls", nodeLID);
+                TreeNode[] Hydrology = new TreeNode[] { subcatchment, LID  };
                 TreeNode treeNode = new TreeNode("Hydrology", Hydrology);
                 treeView1.Nodes.Add(treeNode);
             }
@@ -191,6 +208,7 @@ namespace SWMM2PEST
                 fileName = openFileDialog1.FileName;
                 ReadInputFile rif = new ReadInputFile(fileName);
                 subs = rif.GetSubcatchments();
+                lids = rif.getLIDs();
             }
             createComponentsTree();
         }

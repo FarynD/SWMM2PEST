@@ -24,6 +24,8 @@ namespace SWMM2PEST
 
         public List<Subcatchments> GetSubcatchments() { return subcatchments; }
 
+        public List<LID_Controls> getLIDs() { return LIDs; }
+
         private void readFile()
         {
 
@@ -102,71 +104,132 @@ namespace SWMM2PEST
                     line = sr.ReadLine();
                     line = sr.ReadLine(); //skip down two lines
                     num = 0;
-
-                    while (line != " " && line != "")
-                    {
-                        splitLine = splitString(line, ' ');
-                        if (splitLine.Length == 2)
+                    
+                        while (splitString(line, ' ').Length != 1)
                         {
-                            LIDs[num].setName(splitLine[0]);
-                            LIDs[num].setType(splitLine[1]);
-                        }
-                        else if (splitLine[1] == "BC") //BioRetention
-                        {
+                            splitLine = splitString(line, ' ');
+                            if (splitLine.Length != 0)
+                            {
+                                if (splitLine.Length == 2)
+                                {
+                                    LIDs.Add(new LID_Controls());
+                                    LIDs[num].setName(splitLine[0]);
+                                    LIDs[num].setType(splitLine[1]);
+                                }
+                                if (splitLine[1] == "BC") //BioRetention
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSoil(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setStorage(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "RG") //Rain Garden
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSoil(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setStorage(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "GR") //GreenRoof
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSoil(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrainmat(createParaArr(splitString(line, ' ')));
 
-                        }
-                        else if (splitLine[1] == "RG") //Rain Garden
-                        { 
-                        
-                        }
-                        else if (splitLine[1] == "GR") //GreenRoof
-                        {
-
-                        }
-                        else if (splitLine[1] == "IT") //InfiltrationTrench
-                        {
-
-                        }
-                        else if (splitLine[1] == "PP") //Permeable Pavement
-                        {
-
-                        }
-                        else if (splitLine[1] == "RB") //Rain Barrel
-                        {
-
-                        }
-                        else if (splitLine[1] == "RD") //Rooftop Disconnection
-                        {
-
-                        }
-                        else if (splitLine[1] == "VS") //Vegetative Swale
-                        {
-
-                        }
-
-
-                        line = sr.ReadLine();
-                        num++;
-                    }
+                                }
+                                else if (splitLine[1] == "IT") //InfiltrationTrench
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setStorage(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "PP") //Permeable Pavement
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setPavement(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSoil(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setStorage(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "RB") //Rain Barrel
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setStorage(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "RD") //Rooftop Disconnection
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                    line = sr.ReadLine();
+                                    LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                }
+                                else if (splitLine[1] == "VS") //Vegetative Swale
+                                {
+                                    line = sr.ReadLine();
+                                    LIDs[num].setSurface(createParaArr(splitString(line, ' ')));
+                                }
+                            num++;
+                            }
+                                line = sr.ReadLine();
+                                
+                        } 
                 }
             }
 
         }
 
-        public string[] splitString(string s, char delim)
+        private string[] splitString(string s, char delim)
         {
-            char currentChar = s[0];
-
-            int num = 0;
-            while (num < s.Length)
+            if (s != "" && s != " ")
             {
-                while (num + 1 < s.Length && s[num] == delim && s[num + 1] == delim)
+                char currentChar = s[0];
+
+                int num = 0;
+                while (num < s.Length)
                 {
-                    s = s.Remove(num, 1);
+                    while (num + 1 < s.Length && s[num] == delim && s[num + 1] == delim)
+                    {
+                        s = s.Remove(num, 1);
+                    }
+                    num++;
                 }
-                num++;
+                return s.Split(delim);
             }
-            return s.Split(delim);
+            return new string[0];
+        }
+
+        private double[] createParaArr(string[] data)
+        {
+            double[] paraArr = new double[data.Length - 2];
+            int num = 0;
+            for (int x = 0; x < data.Length; x++)
+            {
+                if (double.TryParse(data[x], out double n))
+                {
+                    paraArr[num] = n;
+                    num++;
+                }
+            }
+            return paraArr;
         }
 
 

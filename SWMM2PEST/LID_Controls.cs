@@ -20,6 +20,16 @@ namespace SWMM2PEST
         //LID usage. Parameters taken from Swmm input files.
         double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
         string type;
+        /* types:
+         * BC = BioRetention
+         * RG = Rain Garden
+         * GR = GreenRoof
+         * IT = InfiltrationTrench
+         * PP = Permeable Pavement
+         * RB = Rain Barrel
+         * RD = Rooftop Disconnection
+         * VS = Vegetative Swale
+         */
 
         public string getName() { return name; }
         public double[] getSurface()
@@ -83,143 +93,6 @@ namespace SWMM2PEST
         public void setType(string aType) { type = aType; }
     }
 
-    /*
-    class BioRetention : LID_Controls
-    {
-        public BioRetention(double[] aSurface, double[] aSoil, double[] aStorage, double[] aDrain)
-        {
-            surface = aSurface;
-            soil = aSoil;
-            storage = aStorage;
-            drain = aDrain;
-        }
-        public BioRetention(double[] aLIDUsage,double[] aSurface, double[] aSoil, double[] aStorage, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            soil = aSoil;
-            storage = aStorage;
-            drain = aDrain;
-        }
-    }
-
-    class RainGarden : LID_Controls
-    {
-        public RainGarden(double[] aSurface, double[] aSoil, double[] aStorage)
-        {
-            surface = aSurface;
-            soil = aSoil;
-            storage = aStorage;
-        }
-        public RainGarden(double[] aLIDUsage, double[] aSurface, double[] aSoil, double[] aStorage)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            soil = aSoil;
-            storage = aStorage;
-        }
-    }
-
-    class GreenRoof : LID_Controls
-    {
-        public GreenRoof(double[] aSurface, double[] aSoil, double[] aDrainmat)
-        {
-            surface = aSurface;
-            soil = aSoil;
-            drainmat = aDrainmat;
-        }
-        public GreenRoof(double[] aLIDUsage, double[] aSurface, double[] aSoil, double[] aDrainMat)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            soil = aSoil;
-            drainmat = aDrainMat;
-        }
-    }
-
-    class InfiltrationTrench : LID_Controls
-    {
-        public InfiltrationTrench(double[] aSurface, double[] aStorage, double[] aDrain)
-        {
-            surface = aSurface;
-            storage = aStorage;
-            drain = aDrain;
-        }
-        public InfiltrationTrench(double[] aLIDUsage, double[] aSurface, double[] aStorage, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            storage = aStorage;
-            drain = aDrain;
-        }
-    }
-
-    class PermeablePavement : LID_Controls
-    {
-        public PermeablePavement(double[] aSurface, double[] aPavement, double[] aSoil, double[] aStorage, double[] aDrain)
-        {
-            surface = aSurface;
-            pavement = aPavement;
-            soil = aSoil;
-            storage = aStorage;
-            drain = aDrain;
-        }
-        public PermeablePavement(double[] aLIDUsage, double[] aPavement, double[] aSurface, double[] aSoil, double[] aStorage, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            pavement = aPavement;
-            soil = aSoil;
-            storage = aStorage;
-            drain = aDrain;
-        }
-    }
-
-    class RainBarrel : LID_Controls
-    {
-        public RainBarrel(double[] aStorage, double[] aDrain)
-        {
-            storage = aStorage;
-            drain = aDrain;
-        }
-        public RainBarrel(double[] aLIDUsage, double[] aStorage, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            storage = aStorage;
-            drain = aDrain;
-        }
-    }
-
-    class RooftopDisconnection : LID_Controls
-    {
-        public RooftopDisconnection(double[] aSurface, double[] aDrain)
-        {
-            surface = aSurface;
-            drain = aDrain;
-        }
-        public RooftopDisconnection(double[] aLIDUsage, double[] aSurface, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            drain = aDrain;
-        }
-    }
-
-    class VegetativeSwale : LID_Controls
-    {
-        public VegetativeSwale(double[] aSurface, double[] aDrain)
-        {
-            surface = aSurface;
-            drain = aDrain;
-        }
-        public VegetativeSwale(double[] aLIDUsage, double[] aSurface, double[] aDrain)
-        {
-            LIDUsage = aLIDUsage;
-            surface = aSurface;
-            drain = aDrain;
-        }
-    }
-
-    */
+    
 
 }

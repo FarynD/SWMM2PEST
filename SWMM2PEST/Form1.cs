@@ -94,8 +94,6 @@ namespace SWMM2PEST
             blankLbl.Text = " ";
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
-            
-
 
         }
 
@@ -184,6 +182,10 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(suctTxtBx);
             flowLayoutPanel1.SetFlowBreak(suctTxtBx, true);
 
+            Label blankLbl = new Label();
+            blankLbl.Text = " ";
+            flowLayoutPanel1.Controls.Add(blankLbl);
+            flowLayoutPanel1.SetFlowBreak(blankLbl, true);
 
         }
         private void pavementParameterEdit(LID_Controls lid)
@@ -250,6 +252,10 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(vclogTxtBx);
             flowLayoutPanel1.SetFlowBreak(vclogTxtBx, true);
 
+            Label blankLbl = new Label();
+            blankLbl.Text = " ";
+            flowLayoutPanel1.Controls.Add(blankLbl);
+            flowLayoutPanel1.SetFlowBreak(blankLbl, true);
         }
 
         private void storageParameterEdit(LID_Controls lid)
@@ -305,6 +311,11 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(vclogLbl);
             flowLayoutPanel1.Controls.Add(vclogTxtBx);
             flowLayoutPanel1.SetFlowBreak(vclogTxtBx, true);
+
+            Label blankLbl = new Label();
+            blankLbl.Text = " ";
+            flowLayoutPanel1.Controls.Add(blankLbl);
+            flowLayoutPanel1.SetFlowBreak(blankLbl, true);
 
         }
 
@@ -362,6 +373,11 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(delayTxtBx);
             flowLayoutPanel1.SetFlowBreak(delayTxtBx, true);
 
+            Label blankLbl = new Label();
+            blankLbl.Text = " ";
+            flowLayoutPanel1.Controls.Add(blankLbl);
+            flowLayoutPanel1.SetFlowBreak(blankLbl, true);
+
         }
 
         private void drainmatParameterEdit(LID_Controls lid)
@@ -408,6 +424,10 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(roughTxtBx);
             flowLayoutPanel1.SetFlowBreak(roughTxtBx, true);
 
+            Label blankLbl = new Label();
+            blankLbl.Text = " ";
+            flowLayoutPanel1.Controls.Add(blankLbl);
+            flowLayoutPanel1.SetFlowBreak(blankLbl, true);
 
         }
 

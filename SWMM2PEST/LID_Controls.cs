@@ -12,8 +12,8 @@ namespace SWMM2PEST
         string name;
         //Parameters from page 291 of "Storm Water Management Model User's Manual Version 5"
         double[] surface; //Arr holding all surface parameters: [StorHt, VegFrac, Rough, Slope, Xslope] 
-        double[] soil; //Arr holding all soil parameters: [Thick, Vration,FracImp,Perm, Vclog]
-        double[] pavement; //arr holding all pavement parameters: [Thick, Vration, FracImp, Perm, Vclog]
+        double[] soil; //Arr holding all soil parameters: [Thick, Por, FC, WP, ksat, kcoeff, suct ]
+        double[] pavement; //arr holding all pavement parameters: [Thick, Vratio, FracImp, Perm, Vclog]
         double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
         double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay]
         double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]

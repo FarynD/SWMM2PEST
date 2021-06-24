@@ -660,10 +660,10 @@ namespace SWMM2PEST
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            Console.WriteLine(e.Node.Text); //what node has been clicked on.
+            //Console.WriteLine(e.Node.Text); //what node has been clicked on.
             if (e.Node.Parent != null)
             {
-                Console.WriteLine(e.Node.Parent.Text); //Parent Node.
+                //Console.WriteLine(e.Node.Parent.Text); //Parent Node.
                 if (e.Node.Parent.Text == "Subcatchments")
                 {
                     Subcatchments currentsub = subs.Find(subs => subs.getName() == e.Node.Text);

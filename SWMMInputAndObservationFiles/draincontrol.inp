@@ -1,0 +1,173 @@
+[TITLE]
+;;Project Title/Notes
+
+[OPTIONS]
+;;Option             Value
+FLOW_UNITS           CFS
+INFILTRATION         HORTON
+FLOW_ROUTING         KINWAVE
+LINK_OFFSETS         DEPTH
+MIN_SLOPE            0
+ALLOW_PONDING        NO
+SKIP_STEADY_STATE    NO
+
+START_DATE           05/19/2021
+START_TIME           00:00:00
+REPORT_START_DATE    05/19/2021
+REPORT_START_TIME    00:00:00
+END_DATE             05/19/2021
+END_TIME             06:00:00
+SWEEP_START          1/1
+SWEEP_END            12/31
+DRY_DAYS             0
+REPORT_STEP          00:15:00
+WET_STEP             00:05:00
+DRY_STEP             01:00:00
+ROUTING_STEP         0:00:30 
+RULE_STEP            00:00:00
+
+INERTIAL_DAMPING     PARTIAL
+NORMAL_FLOW_LIMITED  BOTH
+FORCE_MAIN_EQUATION  H-W
+VARIABLE_STEP        0.75
+LENGTHENING_STEP     0
+MIN_SURFAREA         0
+MAX_TRIALS           0
+HEAD_TOLERANCE       0
+SYS_FLOW_TOL         5
+LAT_FLOW_TOL         5
+MINIMUM_STEP         0.5
+THREADS              1
+
+[EVAPORATION]
+;;Data Source    Parameters
+;;-------------- ----------------
+CONSTANT         0.0
+DRY_ONLY         NO
+
+[SUBCATCHMENTS]
+;;Name           Rain Gage        Outlet           Area     %Imperv  Width    %Slope   CurbLen  SnowPack        
+;;-------------- ---------------- ---------------- -------- -------- -------- -------- -------- ----------------
+lid1to4          *                *                5        25       500      0.5      0                        
+lid5to8          *                *                5        25       500      0.5      0                        
+alllid           *                *                5        25       500      0.5      0                        
+
+[SUBAREAS]
+;;Subcatchment   N-Imperv   N-Perv     S-Imperv   S-Perv     PctZero    RouteTo    PctRouted 
+;;-------------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+lid1to4          0.01       0.1        0.05       0.05       25         OUTLET    
+lid5to8          0.01       0.1        0.05       0.05       25         OUTLET    
+alllid           0.01       0.1        0.05       0.05       25         OUTLET    
+
+[INFILTRATION]
+;;Subcatchment   Param1     Param2     Param3     Param4     Param5    
+;;-------------- ---------- ---------- ---------- ---------- ----------
+lid1to4          3.0        0.5        4          7          0         
+lid5to8          3.0        0.5        4          7          0         
+alllid           3.0        0.5        4          7          0         
+
+[LID_CONTROLS]
+;;Name           Type/Layer Parameters
+;;-------------- ---------- ----------
+1BioRetention    BC
+1BioRetention    SURFACE    1          0.0        0.1        1.0        5         
+1BioRetention    SOIL       1          0.5        0.2        0.1        0.5        10.0       3.5       
+1BioRetention    STORAGE    1          0.75       0.5        0         
+1BioRetention    DRAIN      1          0.5        6          6          5          2          draincurve
+
+2RainGarden      RG
+2RainGarden      SURFACE    2          0.0        0.1        1.0        5         
+2RainGarden      SOIL       2          0.5        0.2        0.1        0.5        10.0       3.5       
+2RainGarden      STORAGE    0          0.75       0.5        0         
+
+3GreenRoof       GR
+3GreenRoof       SURFACE    3          0.0        0.1        1.0        5         
+3GreenRoof       SOIL       3          0.5        0.2        0.1        0.5        10.0       3.5       
+3GreenRoof       DRAINMAT   3          0.5        0.1       
+
+4InfiltrationTrench IT
+4InfiltrationTrench SURFACE    4          0.0        0.1        1.0        5         
+4InfiltrationTrench STORAGE    4          0.75       0.5        0         
+4InfiltrationTrench DRAIN      4          0.5        6          6          0          0                    
+
+5PermeablePavement PP
+5PermeablePavement SURFACE    5          0.0        0.1        1.0        5         
+5PermeablePavement PAVEMENT   5          0.15       0          100        0          0          0         
+5PermeablePavement SOIL       5          0.5        0.2        0.1        0.5        10.0       3.5       
+5PermeablePavement STORAGE    5          0.75       0.5        0         
+5PermeablePavement DRAIN      0          0.5        6          6          0          0                    
+
+6RainBarrel      RB
+6RainBarrel      STORAGE    6          0.75       0.5        0         
+6RainBarrel      DRAIN      6          0.5        6          6          0          0                    
+
+7RooftopDisconnection RD
+7RooftopDisconnection SURFACE    7          0.0        0.1        1.0        5         
+7RooftopDisconnection DRAIN      7          0.5        6          6          0          0                    
+
+8VegetativeSwale VS
+8VegetativeSwale SURFACE    7          0.0        0.1        1.0        5         
+
+[LID_USAGE]
+;;Subcatchment   LID Process      Number  Area       Width      InitSat    FromImp    ToPerv     RptFile                  DrainTo          FromPerv  
+;;-------------- ---------------- ------- ---------- ---------- ---------- ---------- ---------- ------------------------ ---------------- ----------
+lid1to4          1BioRetention    1       0          0          0          0          0          *                        *                0               
+lid1to4          2RainGarden      1       0          0          0          0          0          *                        *                0               
+lid1to4          3GreenRoof       1       0          0          0          0          0          *                        *                0               
+lid1to4          4InfiltrationTrench 1       0          0          0          0          0          *                        *                0               
+lid5to8          5PermeablePavement 1       0          0          0          0          0          *                        *                0               
+lid5to8          6RainBarrel      1       0          0          0          0          0          *                        *                0               
+lid5to8          7RooftopDisconnection 1       0          0          0          0          0          *                        *                0               
+lid5to8          8VegetativeSwale 1       0          0          0          0          0          *                        *                0               
+alllid           1BioRetention    1       0          0          0          0          0          *                        *                0               
+alllid           2RainGarden      1       0          0          0          0          0          *                        *                0               
+alllid           3GreenRoof       1       0          0          0          0          0          *                        *                0               
+alllid           4InfiltrationTrench 1       0          0          0          0          0          *                        *                0               
+alllid           5PermeablePavement 1       0          0          0          0          0          *                        *                0               
+alllid           6RainBarrel      1       0          0          0          0          0          *                        *                0               
+alllid           7RooftopDisconnection 1       0          0          0          0          0          *                        *                0               
+alllid           8VegetativeSwale 1       0          0          0          0          0          *                        *                0               
+
+[CURVES]
+;;Name           Type       X-Value    Y-Value   
+;;-------------- ---------- ---------- ----------
+draincurve       Control    0          5         
+draincurve                  1          6         
+draincurve                  2          7         
+draincurve                  3          8         
+draincurve                  4          9         
+
+[REPORT]
+;;Reporting Options
+SUBCATCHMENTS ALL
+NODES ALL
+LINKS ALL
+
+[TAGS]
+
+[MAP]
+DIMENSIONS 0.000 0.000 10000.000 10000.000
+Units      None
+
+[COORDINATES]
+;;Node           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+
+[VERTICES]
+;;Link           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+
+[Polygons]
+;;Subcatchment   X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+lid1to4          4210.019           4219.653          
+lid1to4          7658.960           7418.112          
+lid1to4          3131.021           9055.877          
+lid1to4          221.580            7129.094          
+lid5to8          2745.665           481.696           
+lid5to8          5173.410           2755.299          
+lid5to8          -105.973           3275.530          
+alllid           11801.541          3545.279          
+alllid           10105.973          6531.792          
+alllid           8526.012           3949.904          
+

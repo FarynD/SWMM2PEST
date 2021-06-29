@@ -16,6 +16,7 @@ namespace SWMM2PEST
         double[] pavement; //arr holding all pavement parameters: [Thick, Vratio, FracImp, Perm, Vclog]
         double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
         double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay]
+        //For drain older files have coeff, expon, offset,delay
         double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
         //LID usage. Parameters taken from Swmm input files.
         double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]

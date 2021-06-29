@@ -1,0 +1,4 @@
+2D.inp follows a template that includes most/all of the possible sections, but some are empty. For example [LID_CONTROLS] and [LID_USAGE] are empty so you may have to handle them differently (or maybe not!).
+
+Example2_Broward.inp has a [TIMESERIES] section with multiple x/y values on one line.
+

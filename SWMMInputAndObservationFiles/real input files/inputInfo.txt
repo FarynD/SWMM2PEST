@@ -1,0 +1,1 @@
+calvin_college.inp has multiple [CURVES] although they are the normal format.

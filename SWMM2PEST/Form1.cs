@@ -321,38 +321,36 @@ namespace SWMM2PEST
 
         private void drainParameterEdit(LID_Controls lid)
         {
+            bool hasDelay = false; //only rainbarrel use drain delay
+            bool hasOpenClose = false; // older swmm files don't have open level or closed level
+            bool hasCurve = false;
+            if(lid.getDrain().Length == 5) { hasOpenClose = true; }
             Label drainLbl = new Label();
             Label coeffLbl = new Label();
             Label exponLbl = new Label();
             Label offsetLbl = new Label();
-            Label delayLbl = new Label();
 
             drainLbl.Text = "Drain";
             coeffLbl.Text = "coeff";
             exponLbl.Text = "expon";
             offsetLbl.Text = "offset";
-            delayLbl.Text = "delay";
 
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(coeffLbl, "coefficient C that determines the rate of flow through the drain as a function of height of stored water above the drain bottom.For Rooftop Disconnection it is the maximum flow rate(in inches / hour or mm / hour) that the roof’s gutters and downspouts can handle before overflowing.");
             tooltip1.SetToolTip(exponLbl, "exponent n that determines the rate of flow through the drain as a function of height of stored water above the drain outlet.");
-            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");
-            tooltip1.SetToolTip(delayLbl, "number of dry weather hours that must elapse before the drain line in a rain barrel is opened(the line is assumed to be closed once rainfall begins).A value of 0 signifies that the barrel's drain line is always open and drains continuously.This parameter is ignored for other types of LIDs.");
+            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");            
 
             TextBox coeffTxtBx = new TextBox();
             TextBox exponTxtBx = new TextBox();
             TextBox offsetTxtBx = new TextBox();
-            TextBox delayTxtBx = new TextBox();
-
+            
             coeffTxtBx.Enabled = false;
             exponTxtBx.Enabled = false;
             offsetTxtBx.Enabled = false;
-            delayTxtBx.Enabled = false;
-
+            
             coeffTxtBx.Text = Convert.ToString(lid.getDrain()[0]);
             exponTxtBx.Text = Convert.ToString(lid.getDrain()[1]);
-            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);
-            delayTxtBx.Text = Convert.ToString(lid.getDrain()[3]);
+            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);            
 
             flowLayoutPanel1.Controls.Add(drainLbl);
             flowLayoutPanel1.SetFlowBreak(drainLbl, true);
@@ -369,9 +367,44 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(offsetTxtBx);
             flowLayoutPanel1.SetFlowBreak(offsetTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(delayLbl);
-            flowLayoutPanel1.Controls.Add(delayTxtBx);
-            flowLayoutPanel1.SetFlowBreak(delayTxtBx, true);
+            if (hasOpenClose)
+            {
+                Label openLbl = new Label();
+                Label closedLbl = new Label();
+                openLbl.Text = "Open Level";
+                closedLbl.Text = "Closed Level";
+                tooltip1.SetToolTip(openLbl, "The height (in inches or mm) in the drain's Storage Layer that causes the drain to automatically open when the water level rises above it. ");
+                tooltip1.SetToolTip(openLbl, "The height (in inches or mm) in the drain's Storage Layer that causes the drain to automatically close when the water level falls below it. ");
+                TextBox openTxt = new TextBox();
+                TextBox closedTxt = new TextBox();
+                openTxt.Enabled = false;
+                closedTxt.Enabled = false;
+                openTxt.Text = Convert.ToString(lid.getDrain()[3]);
+                closedTxt.Text = Convert.ToString(lid.getDrain()[4]);
+
+                flowLayoutPanel1.Controls.Add(openLbl);
+                flowLayoutPanel1.Controls.Add(openTxt);
+                flowLayoutPanel1.SetFlowBreak(openTxt, true);
+
+                flowLayoutPanel1.Controls.Add(closedLbl);
+                flowLayoutPanel1.Controls.Add(closedTxt);
+                flowLayoutPanel1.SetFlowBreak(closedTxt, true);
+            }
+            else
+            {
+                Label delayLbl = new Label();
+                delayLbl.Text = "delay";
+                tooltip1.SetToolTip(delayLbl, "number of dry weather hours that must elapse before the drain line in a rain barrel is opened(the line is assumed to be closed once rainfall begins).A value of 0 signifies that the barrel's drain line is always open and drains continuously.This parameter is ignored for other types of LIDs.");
+                TextBox delayTxtBx = new TextBox();
+                delayTxtBx.Enabled = false;
+                delayTxtBx.Text = Convert.ToString(lid.getDrain()[3]);
+
+                flowLayoutPanel1.Controls.Add(delayLbl);
+                flowLayoutPanel1.Controls.Add(delayTxtBx);
+                flowLayoutPanel1.SetFlowBreak(delayTxtBx, true);
+
+            }
+
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";

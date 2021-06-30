@@ -19,7 +19,7 @@ namespace SWMM2PEST
         //For drain older files have coeff, expon, offset,delay
         double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
         //LID usage. Parameters taken from Swmm input files.
-        double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
+        double[] LIDUsage; //Arr holding all LID Usage parameters : [subcatchmentName, number, area, width, initSat, toPerv]
         string type;
         /* types:
          * BC = BioRetention

@@ -26,6 +26,42 @@ namespace SWMM2PEST
             
         }
 
+        
+        private void createComponentsTree()
+        {
+            treeView1.Nodes.Clear();
+            if (subs != null)
+            {
+                TreeNode[] nodeSubs = new TreeNode[subs.Count];
+                for (int x = 0; x < subs.Count; x++)
+                {
+                    nodeSubs[x] = new TreeNode(subs[x].getName());
+                }
+                
+                TreeNode[] nodeLID = new TreeNode[lids.Count];
+                for (int x = 0; x < lids.Count; x++)
+                {
+                    nodeLID[x] = new TreeNode(lids[x].getName());
+                }
+                
+
+                TreeNode subcatchment = new TreeNode("Subcatchments", nodeSubs);
+                TreeNode LID = new TreeNode("LID Controls", nodeLID);
+                TreeNode[] Hydrology = new TreeNode[] { subcatchment, LID  };
+                TreeNode treeNode = new TreeNode("Hydrology", Hydrology);
+                treeView1.Nodes.Add(treeNode);
+            }
+        }
+
+        private void clearAll()
+        {
+            flowLayoutPanel1.Controls.Clear();
+        }
+
+        //-------------------------------------------
+        //Parameter edits
+        //-------------------------------------------
+
         private void surfaceParameterEdit(LID_Controls lid)
         {
             Label surfaceLbl = new Label();
@@ -70,23 +106,23 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(surfaceLbl);
             flowLayoutPanel1.SetFlowBreak(surfaceLbl, true);
 
-            flowLayoutPanel1.Controls.Add(storHtLbl);           
+            flowLayoutPanel1.Controls.Add(storHtLbl);
             flowLayoutPanel1.Controls.Add(storHtTxtBx);
             flowLayoutPanel1.SetFlowBreak(storHtTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(vegFracLbl);           
+            flowLayoutPanel1.Controls.Add(vegFracLbl);
             flowLayoutPanel1.Controls.Add(vegFracTxtBx);
             flowLayoutPanel1.SetFlowBreak(vegFracTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(roughLbl);          
+            flowLayoutPanel1.Controls.Add(roughLbl);
             flowLayoutPanel1.Controls.Add(roughTxtBx);
             flowLayoutPanel1.SetFlowBreak(roughTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(slopeLbl);            
+            flowLayoutPanel1.Controls.Add(slopeLbl);
             flowLayoutPanel1.Controls.Add(slopeTxtBx);
             flowLayoutPanel1.SetFlowBreak(slopeTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(xSlopeLbl);            
+            flowLayoutPanel1.Controls.Add(xSlopeLbl);
             flowLayoutPanel1.Controls.Add(xSlopeTxtBx);
             flowLayoutPanel1.SetFlowBreak(xSlopeTxtBx, true);
 
@@ -154,31 +190,31 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(soilLbl);
             flowLayoutPanel1.SetFlowBreak(soilLbl, true);
 
-            flowLayoutPanel1.Controls.Add(thickLbl);           
+            flowLayoutPanel1.Controls.Add(thickLbl);
             flowLayoutPanel1.Controls.Add(thickTxtBx);
             flowLayoutPanel1.SetFlowBreak(thickTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(porLbl);            
+            flowLayoutPanel1.Controls.Add(porLbl);
             flowLayoutPanel1.Controls.Add(porTxtBx);
             flowLayoutPanel1.SetFlowBreak(porTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(fcLbl);            
+            flowLayoutPanel1.Controls.Add(fcLbl);
             flowLayoutPanel1.Controls.Add(fcTxtBx);
             flowLayoutPanel1.SetFlowBreak(fcTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(wpLbl);            
+            flowLayoutPanel1.Controls.Add(wpLbl);
             flowLayoutPanel1.Controls.Add(wpTxtBx);
             flowLayoutPanel1.SetFlowBreak(wpTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(ksatLbl);            
+            flowLayoutPanel1.Controls.Add(ksatLbl);
             flowLayoutPanel1.Controls.Add(ksatTxtBx);
             flowLayoutPanel1.SetFlowBreak(ksatTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(kcoeffLbl);            
+            flowLayoutPanel1.Controls.Add(kcoeffLbl);
             flowLayoutPanel1.Controls.Add(kcoeffTxtBx);
             flowLayoutPanel1.SetFlowBreak(kcoeffTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(suctLbl);            
+            flowLayoutPanel1.Controls.Add(suctLbl);
             flowLayoutPanel1.Controls.Add(suctTxtBx);
             flowLayoutPanel1.SetFlowBreak(suctTxtBx, true);
 
@@ -300,7 +336,7 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(heightTxtBx);
             flowLayoutPanel1.SetFlowBreak(heightTxtBx, true);
 
-            flowLayoutPanel1.Controls.Add(vRatioLbl);;
+            flowLayoutPanel1.Controls.Add(vRatioLbl); ;
             flowLayoutPanel1.Controls.Add(vRatioTxtBx);
             flowLayoutPanel1.SetFlowBreak(vRatioTxtBx, true);
 
@@ -324,7 +360,7 @@ namespace SWMM2PEST
             bool hasDelay = false; //only rainbarrel use drain delay
             bool hasOpenClose = false; // older swmm files don't have open level or closed level
             bool hasCurve = false;
-            if(lid.getDrain().Length == 5) { hasOpenClose = true; }
+            if (lid.getDrain().Length == 5) { hasOpenClose = true; }
             Label drainLbl = new Label();
             Label coeffLbl = new Label();
             Label exponLbl = new Label();
@@ -338,19 +374,19 @@ namespace SWMM2PEST
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(coeffLbl, "coefficient C that determines the rate of flow through the drain as a function of height of stored water above the drain bottom.For Rooftop Disconnection it is the maximum flow rate(in inches / hour or mm / hour) that the roof’s gutters and downspouts can handle before overflowing.");
             tooltip1.SetToolTip(exponLbl, "exponent n that determines the rate of flow through the drain as a function of height of stored water above the drain outlet.");
-            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");            
+            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");
 
             TextBox coeffTxtBx = new TextBox();
             TextBox exponTxtBx = new TextBox();
             TextBox offsetTxtBx = new TextBox();
-            
+
             coeffTxtBx.Enabled = false;
             exponTxtBx.Enabled = false;
             offsetTxtBx.Enabled = false;
-            
+
             coeffTxtBx.Text = Convert.ToString(lid.getDrain()[0]);
             exponTxtBx.Text = Convert.ToString(lid.getDrain()[1]);
-            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);            
+            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);
 
             flowLayoutPanel1.Controls.Add(drainLbl);
             flowLayoutPanel1.SetFlowBreak(drainLbl, true);
@@ -419,7 +455,7 @@ namespace SWMM2PEST
             Label thickLbl = new Label();
             Label vRatioLbl = new Label();
             Label roughLbl = new Label();
-            
+
             drainmLbl.Text = "Drainmat";
             thickLbl.Text = "thick";
             vRatioLbl.Text = "expon";
@@ -429,11 +465,11 @@ namespace SWMM2PEST
             tooltip1.SetToolTip(thickLbl, "thickness of the drainage mat (inches or mm).");
             tooltip1.SetToolTip(vRatioLbl, "ratio of void volume to total volume in the mat.");
             tooltip1.SetToolTip(roughLbl, "Manning's n constant used to compute the horizontal flow rate of drained water through the mat.");
-            
+
             TextBox thickTxtBx = new TextBox();
             TextBox vRatioTxtBx = new TextBox();
             TextBox roughTxtBx = new TextBox();
-           
+
             thickTxtBx.Enabled = false;
             vRatioTxtBx.Enabled = false;
             roughTxtBx.Enabled = false;
@@ -493,7 +529,7 @@ namespace SWMM2PEST
                 surfaceParameterEdit(lid);
                 storageParameterEdit(lid);
                 drainParameterEdit(lid);
-                
+
             }
             else if (lid.getType() == "PP")
             {
@@ -587,7 +623,7 @@ namespace SWMM2PEST
             suctionTextBox.Text = Convert.ToString(sub.getSuction());
             ksatTextBox.Text = Convert.ToString(sub.getKsat());
             IMDTextBox.Text = Convert.ToString(sub.getIMD());
-            
+
             flowLayoutPanel1.Controls.Add(areaLabel);
             flowLayoutPanel1.SetFlowBreak(areaLabel, true);
             flowLayoutPanel1.Controls.Add(areaTextBox);
@@ -639,36 +675,6 @@ namespace SWMM2PEST
             flowLayoutPanel1.SetFlowBreak(IMDTextBox, true);
 
 
-        }
-        private void createComponentsTree()
-        {
-            treeView1.Nodes.Clear();
-            if (subs != null)
-            {
-                TreeNode[] nodeSubs = new TreeNode[subs.Count];
-                for (int x = 0; x < subs.Count; x++)
-                {
-                    nodeSubs[x] = new TreeNode(subs[x].getName());
-                }
-                
-                TreeNode[] nodeLID = new TreeNode[lids.Count];
-                for (int x = 0; x < lids.Count; x++)
-                {
-                    nodeLID[x] = new TreeNode(lids[x].getName());
-                }
-                
-
-                TreeNode subcatchment = new TreeNode("Subcatchments", nodeSubs);
-                TreeNode LID = new TreeNode("LID Controls", nodeLID);
-                TreeNode[] Hydrology = new TreeNode[] { subcatchment, LID  };
-                TreeNode treeNode = new TreeNode("Hydrology", Hydrology);
-                treeView1.Nodes.Add(treeNode);
-            }
-        }
-
-        private void clearAll()
-        {
-            flowLayoutPanel1.Controls.Clear();
         }
 
         //-------------------------------------------

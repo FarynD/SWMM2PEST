@@ -229,6 +229,14 @@ namespace SWMM2PEST
 
                     }
                 }
+                if (line == "[[LID_USAGE]")
+                {
+                    line = sr.ReadLine();
+                    while (line.Contains(";;"))
+                    {
+                        line = sr.ReadLine();
+                    }
+                }
             }
 
         }

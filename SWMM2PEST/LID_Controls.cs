@@ -15,12 +15,15 @@ namespace SWMM2PEST
         double[] soil; //Arr holding all soil parameters: [Thick, Por, FC, WP, ksat, kcoeff, suct ]
         double[] pavement; //arr holding all pavement parameters: [Thick, Vratio, FracImp, Perm, Vclog]
         double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
-        double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay]
+        double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay, open level (newer version of swmm only), closed level (newer version of swmm only)]
         //For drain older files have coeff, expon, offset,delay
         double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
         //LID usage. Parameters taken from Swmm input files.
         double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
+        string curve;
         string type;
+        List<string> checkedParas;
+
         /* types:
          * BC = BioRetention
          * RG = Rain Garden
@@ -67,11 +70,13 @@ namespace SWMM2PEST
             return LIDUsage;
         }
 
+        public string getCurveName() { return curve; }
+
         public string getType() { return type; }
 
         public bool haveLIDUsage()
-        { 
-            if( LIDUsage == null) { return false; }
+        {
+            if (LIDUsage == null) { return false; }
             return true;
         }
 
@@ -79,7 +84,7 @@ namespace SWMM2PEST
 
         public void setSurface(double[] aSurface) { surface = aSurface; }
 
-        public void  setSoil(double[] aSoil) { soil = aSoil; }
+        public void setSoil(double[] aSoil) { soil = aSoil; }
 
         public void setPavement(double[] aPavement) { pavement = aPavement; }
 
@@ -91,7 +96,15 @@ namespace SWMM2PEST
 
         public void setLIDUsage(double[] aLIDUsage) { LIDUsage = aLIDUsage; }
 
+        public void setCurveName(string aCurve) { curve = aCurve; }
         public void setType(string aType) { type = aType; }
+
+        public bool addCheckedParameter(string aParaName)
+        {
+            if (checkedParas.Contains(aParaName)) { return false; }
+            checkedParas.Add(aParaName);
+            return true;
+        }
     }
 
     

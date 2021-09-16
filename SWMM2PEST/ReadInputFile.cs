@@ -13,18 +13,22 @@ namespace SWMM2PEST
     {
         string fileLocation;
         List<Subcatchments> subcatchments;
-        List <LID_Controls>LIDs;
+        List<LID_Controls> LIDs;
+        List<Curves> curves;
         public ReadInputFile(string aFileLocation)
         {
             fileLocation = aFileLocation;
             subcatchments = new List<Subcatchments>();
             LIDs = new List<LID_Controls>();
+            curves = new List<Curves>();
             readFile();
         }
 
         public List<Subcatchments> GetSubcatchments() { return subcatchments; }
 
         public List<LID_Controls> getLIDs() { return LIDs; }
+
+        public List<Curves> getCurves() { return curves; }
 
         private void readFile()
         {
@@ -65,14 +69,14 @@ namespace SWMM2PEST
                     {
                         line = sr.ReadLine();
                     }
-                    num = 0;  
+                    num = 0;
 
                     while (line != " " && line != "")
                     {
                         splitLine = splitString(line, ' ');
 
-                        Console.WriteLine(splitLine[0]);
                         
+
                         subcatchments[num].setNImperv(Convert.ToDouble(splitLine[1]));
                         subcatchments[num].setNPerv(Convert.ToDouble(splitLine[2]));
                         subcatchments[num].setSImperv(Convert.ToDouble(splitLine[3]));
@@ -95,35 +99,35 @@ namespace SWMM2PEST
                     {
                         splitLine = splitString(line, ' ');
 
-                        
+
                         subcatchments[num].setSuction(Convert.ToDouble(splitLine[1]));
                         subcatchments[num].setKsat(Convert.ToDouble(splitLine[2]));
                         subcatchments[num].setIMD(Convert.ToInt32(splitLine[3]));
-                        
+
                         line = sr.ReadLine();
                         num++;
                     }
                 }
                 if (line == "[LID_CONTROLS]")
                 {
-                    
+
                     line = sr.ReadLine();
                     while (line.Contains(";;"))
                     {
                         line = sr.ReadLine();
                     }
-                    
+
                     num = 0;
 
                     while (splitString(line, ' ').Length != 1)
                     {
-                        
+
                         splitLine = splitString(line, ' ');
                         if (splitLine.Length != 0)
                         {
                             if (splitLine.Length == 2) //name
                             {
-                                Console.WriteLine("name: " +line + "\narr: " +splitLine);
+                               
                                 LIDs.Add(new LID_Controls());
                                 LIDs[num].setName(splitLine[0]);
                                 LIDs[num].setType(splitLine[1]);
@@ -143,6 +147,8 @@ namespace SWMM2PEST
                                 line = sr.ReadLine();
                                 if (line.Contains(";;")) { line = sr.ReadLine(); }
                                 LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                if (line.Contains(";;")) { line = sr.ReadLine(); }
+                                LIDs[num].setCurveName(drainCurve(splitString(line, ' ')));
                             }
                             else if (splitLine[1] == "RG") //Rain Garden
                             {
@@ -180,6 +186,8 @@ namespace SWMM2PEST
                                 line = sr.ReadLine();
                                 if (line.Contains(";;")) { line = sr.ReadLine(); }
                                 LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                if (line.Contains(";;")) { line = sr.ReadLine(); }
+                                LIDs[num].setCurveName(drainCurve(splitString(line, ' ')));
                             }
                             else if (splitLine[1] == "PP") //Permeable Pavement
                             {
@@ -198,6 +206,8 @@ namespace SWMM2PEST
                                 line = sr.ReadLine();
                                 if (line.Contains(";;")) { line = sr.ReadLine(); }
                                 LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                if (line.Contains(";;")) { line = sr.ReadLine(); }
+                                LIDs[num].setCurveName(drainCurve(splitString(line, ' ')));
                             }
                             else if (splitLine[1] == "RB") //Rain Barrel
                             {
@@ -207,6 +217,8 @@ namespace SWMM2PEST
                                 line = sr.ReadLine();
                                 if (line.Contains(";;")) { line = sr.ReadLine(); }
                                 LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                if (line.Contains(";;")) { line = sr.ReadLine(); }
+                                LIDs[num].setCurveName(drainCurve(splitString(line, ' ')));
                             }
                             else if (splitLine[1] == "RD") //Rooftop Disconnection
                             {
@@ -216,6 +228,8 @@ namespace SWMM2PEST
                                 line = sr.ReadLine();
                                 if (line.Contains(";;")) { line = sr.ReadLine(); }
                                 LIDs[num].setDrain(createParaArr(splitString(line, ' ')));
+                                if (line.Contains(";;")) { line = sr.ReadLine(); }
+                                LIDs[num].setCurveName(drainCurve(splitString(line, ' ')));
                             }
                             else if (splitLine[1] == "VS") //Vegetative Swale
                             {
@@ -226,6 +240,53 @@ namespace SWMM2PEST
                             num++;
                         }
                         line = sr.ReadLine();
+
+                    }
+                }
+                if (line == "[CURVES]")
+                {
+                    line = sr.ReadLine();
+                    while (line.Contains(";;"))
+                    {
+                        line = sr.ReadLine();
+                    }
+
+                    num = 0;
+                    while (line != " " && line != "")
+                    {
+                        splitLine = splitString(line, ' ');
+                        if (splitLine.Length <= 4) // name type x y
+                        {
+                            
+                            if (splitLine.Length == 4)
+                            {
+                                
+                                Curves c = new Curves();
+                                curves.Add(c);
+                                
+                                curves[num].setName(splitLine[0]);
+                                Console.WriteLine("name: " + curves[num].getName());
+                                curves[num].setType(splitLine[1]);
+                                Console.WriteLine("type:" + curves[num].getType());
+                                curves[num].addX(Convert.ToInt32(splitLine[2]));
+                                curves[num].addY(Convert.ToInt32(splitLine[3]));
+                                num++;
+                            }
+                            else
+                            {
+                                curves[num-1].addX(Convert.ToInt32(splitLine[1]));
+                                curves[num-1].addY(Convert.ToInt32(splitLine[2]));
+                            }
+                            
+
+                        }
+                        else
+                        {
+                            
+                        }
+                        line = sr.ReadLine();
+
+                        
 
                     }
                 }
@@ -248,9 +309,14 @@ namespace SWMM2PEST
                     }
                     num++;
                 }
+                
+                
 
-                Console.WriteLine("s:" + s);
-                return s.Split(delim);
+                
+                string[] newS = s.Split(delim);
+                newS = newS.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                Console.WriteLine("Size: " + newS.Count() + " / SplitString: " + s);
+                return newS;
             }
             return new string[0];
         }
@@ -270,6 +336,15 @@ namespace SWMM2PEST
             return paraArr;
         }
 
+        private string drainCurve(string[] data)
+        {
+            if (data.Length >= 9)
+            {
+                return data[8];
+            }
+            return "";
+        }
 
+        
     }
 }

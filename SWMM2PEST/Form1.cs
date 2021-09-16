@@ -16,14 +16,24 @@ namespace SWMM2PEST
 
         List<Subcatchments> subs;
         List<LID_Controls> lids;
+        List<Curves> curves;
+        List<CheckBox> cBoxes;
         string fileName;
+        List<CheckBox> currentChecked;
+        List<CheckBox> lastChecked;
         public Form1()
         {
             InitializeComponent();
             createComponentsTree();
             subs = new List<Subcatchments>();
             lids = new List<LID_Controls>();
-            
+            curves = new List<Curves>();
+            cBoxes = new List<CheckBox>();
+            currentChecked = new List<CheckBox>();
+            lastChecked = new List<CheckBox>();
+
+
+
         }
 
         private void surfaceParameterEdit(LID_Controls lid)
@@ -67,28 +77,55 @@ namespace SWMM2PEST
             slopeTxtBx.Text = Convert.ToString(lid.getSurface()[3]);
             xSlopeTxtBx.Text = Convert.ToString(lid.getSurface()[4]);
 
+            CheckBox storHtCheck = new CheckBox();
+            storHtCheck.Name = "StorHtCheck";
+            cBoxes.Add(storHtCheck);
+            storHtCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vegFracCheck = new CheckBox();
+            vegFracCheck.Name = "VegFracCheck";
+            cBoxes.Add(vegFracCheck);
+            vegFracCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox roughCheck = new CheckBox();
+            roughCheck.Name = "RoughCheck";
+            cBoxes.Add(roughCheck);
+            roughCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox slopeCheck = new CheckBox();
+            slopeCheck.Name = "SlopeCheck";
+            cBoxes.Add(slopeCheck);
+            slopeCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox xSlopeCheck = new CheckBox();
+            xSlopeCheck.Name = "XSlopeCheck";
+            cBoxes.Add(xSlopeCheck);
+            xSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
+
+
             flowLayoutPanel1.Controls.Add(surfaceLbl);
             flowLayoutPanel1.SetFlowBreak(surfaceLbl, true);
 
-            flowLayoutPanel1.Controls.Add(storHtLbl);           
+            flowLayoutPanel1.Controls.Add(storHtLbl);
             flowLayoutPanel1.Controls.Add(storHtTxtBx);
-            flowLayoutPanel1.SetFlowBreak(storHtTxtBx, true);
+            flowLayoutPanel1.Controls.Add(storHtCheck);
+            flowLayoutPanel1.SetFlowBreak(storHtCheck, true);
 
-            flowLayoutPanel1.Controls.Add(vegFracLbl);           
+            flowLayoutPanel1.Controls.Add(vegFracLbl);
             flowLayoutPanel1.Controls.Add(vegFracTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vegFracTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vegFracCheck);
+            flowLayoutPanel1.SetFlowBreak(vegFracCheck, true);
 
-            flowLayoutPanel1.Controls.Add(roughLbl);          
+            flowLayoutPanel1.Controls.Add(roughLbl);
             flowLayoutPanel1.Controls.Add(roughTxtBx);
-            flowLayoutPanel1.SetFlowBreak(roughTxtBx, true);
+            flowLayoutPanel1.Controls.Add(roughCheck);
+            flowLayoutPanel1.SetFlowBreak(roughCheck, true);
 
-            flowLayoutPanel1.Controls.Add(slopeLbl);            
+            flowLayoutPanel1.Controls.Add(slopeLbl);
             flowLayoutPanel1.Controls.Add(slopeTxtBx);
-            flowLayoutPanel1.SetFlowBreak(slopeTxtBx, true);
+            flowLayoutPanel1.Controls.Add(slopeCheck);
+            flowLayoutPanel1.SetFlowBreak(slopeCheck, true);
 
-            flowLayoutPanel1.Controls.Add(xSlopeLbl);            
+            flowLayoutPanel1.Controls.Add(xSlopeLbl);
             flowLayoutPanel1.Controls.Add(xSlopeTxtBx);
-            flowLayoutPanel1.SetFlowBreak(xSlopeTxtBx, true);
+            flowLayoutPanel1.Controls.Add(xSlopeCheck);
+            flowLayoutPanel1.SetFlowBreak(xSlopeCheck, true);
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
@@ -151,36 +188,72 @@ namespace SWMM2PEST
             kcoeffTxtBx.Text = Convert.ToString(lid.getSoil()[5]);
             suctTxtBx.Text = Convert.ToString(lid.getSoil()[6]);
 
+            CheckBox thickCheck = new CheckBox();
+            thickCheck.Name = "SoilThickCheck";
+            cBoxes.Add(thickCheck);
+            thickCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox porCheck = new CheckBox();
+            porCheck.Name = "PorCheck";
+            cBoxes.Add(porCheck);
+            porCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox fcCheck = new CheckBox();
+            fcCheck.Name = "FcCheck";
+            cBoxes.Add(fcCheck);
+            fcCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox wpCheck = new CheckBox();
+            wpCheck.Name = "WpCheck";
+            cBoxes.Add(wpCheck);
+            wpCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox ksatCheck = new CheckBox();
+            ksatCheck.Name = "KsatCheck";
+            cBoxes.Add(ksatCheck);
+            ksatCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox kcoeffCheck = new CheckBox();
+            kcoeffCheck.Name = "KcoeffCheck";
+            cBoxes.Add(kcoeffCheck);
+            kcoeffCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox suctCheck = new CheckBox();
+            suctCheck.Name = "SuctCheck";
+            cBoxes.Add(suctCheck);
+            suctCheck.CheckedChanged += new EventHandler(checkChecked);
+
             flowLayoutPanel1.Controls.Add(soilLbl);
             flowLayoutPanel1.SetFlowBreak(soilLbl, true);
 
-            flowLayoutPanel1.Controls.Add(thickLbl);           
+            flowLayoutPanel1.Controls.Add(thickLbl);
             flowLayoutPanel1.Controls.Add(thickTxtBx);
-            flowLayoutPanel1.SetFlowBreak(thickTxtBx, true);
+            flowLayoutPanel1.Controls.Add(thickCheck);
+            flowLayoutPanel1.SetFlowBreak(thickCheck, true);
 
-            flowLayoutPanel1.Controls.Add(porLbl);            
+            flowLayoutPanel1.Controls.Add(porLbl);
             flowLayoutPanel1.Controls.Add(porTxtBx);
-            flowLayoutPanel1.SetFlowBreak(porTxtBx, true);
+            flowLayoutPanel1.Controls.Add(porCheck);
+            flowLayoutPanel1.SetFlowBreak(porCheck, true);
 
-            flowLayoutPanel1.Controls.Add(fcLbl);            
+            flowLayoutPanel1.Controls.Add(fcLbl);
             flowLayoutPanel1.Controls.Add(fcTxtBx);
-            flowLayoutPanel1.SetFlowBreak(fcTxtBx, true);
+            flowLayoutPanel1.Controls.Add(fcCheck);
+            flowLayoutPanel1.SetFlowBreak(fcCheck, true);
 
-            flowLayoutPanel1.Controls.Add(wpLbl);            
+            flowLayoutPanel1.Controls.Add(wpLbl);
             flowLayoutPanel1.Controls.Add(wpTxtBx);
-            flowLayoutPanel1.SetFlowBreak(wpTxtBx, true);
+            flowLayoutPanel1.Controls.Add(wpCheck);
+            flowLayoutPanel1.SetFlowBreak(wpCheck, true);
 
-            flowLayoutPanel1.Controls.Add(ksatLbl);            
+            flowLayoutPanel1.Controls.Add(ksatLbl);
             flowLayoutPanel1.Controls.Add(ksatTxtBx);
-            flowLayoutPanel1.SetFlowBreak(ksatTxtBx, true);
+            flowLayoutPanel1.Controls.Add(ksatCheck);
+            flowLayoutPanel1.SetFlowBreak(ksatCheck, true);
 
-            flowLayoutPanel1.Controls.Add(kcoeffLbl);            
+            flowLayoutPanel1.Controls.Add(kcoeffLbl);
             flowLayoutPanel1.Controls.Add(kcoeffTxtBx);
-            flowLayoutPanel1.SetFlowBreak(kcoeffTxtBx, true);
+            flowLayoutPanel1.Controls.Add(kcoeffCheck);
+            flowLayoutPanel1.SetFlowBreak(kcoeffCheck, true);
 
-            flowLayoutPanel1.Controls.Add(suctLbl);            
+            flowLayoutPanel1.Controls.Add(suctLbl);
             flowLayoutPanel1.Controls.Add(suctTxtBx);
-            flowLayoutPanel1.SetFlowBreak(suctTxtBx, true);
+            flowLayoutPanel1.Controls.Add(suctCheck);
+            flowLayoutPanel1.SetFlowBreak(suctCheck, true);
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
@@ -229,28 +302,54 @@ namespace SWMM2PEST
             permTxtBx.Text = Convert.ToString(lid.getPavement()[3]);
             vclogTxtBx.Text = Convert.ToString(lid.getPavement()[4]);
 
+            CheckBox thickCheck = new CheckBox();
+            thickCheck.Name = "PavementThickCheck";
+            cBoxes.Add(thickCheck);
+            thickCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vRatioCheck = new CheckBox();
+            thickCheck.Name = "VRatioCheck";
+            cBoxes.Add(vRatioCheck);
+            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox fracImpCheck = new CheckBox();
+            fracImpCheck.Name = "FracImpCheck";
+            cBoxes.Add(fracImpCheck);
+            fracImpCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox permCheck = new CheckBox();
+            permCheck.Name = "PermCheck";
+            cBoxes.Add(permCheck);
+            permCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vclogCheck = new CheckBox();
+            vclogCheck.Name = "VclogCheck";
+            cBoxes.Add(vclogCheck);
+            vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+
             flowLayoutPanel1.Controls.Add(pavLbl);
             flowLayoutPanel1.SetFlowBreak(pavLbl, true);
 
             flowLayoutPanel1.Controls.Add(thickLbl);
             flowLayoutPanel1.Controls.Add(thickTxtBx);
-            flowLayoutPanel1.SetFlowBreak(thickTxtBx, true);
+            flowLayoutPanel1.Controls.Add(thickCheck);
+            flowLayoutPanel1.SetFlowBreak(thickCheck, true);
 
             flowLayoutPanel1.Controls.Add(vRatioLbl);
             flowLayoutPanel1.Controls.Add(vRatioTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vRatioTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vRatioCheck);
+            flowLayoutPanel1.SetFlowBreak(vRatioCheck, true);
 
             flowLayoutPanel1.Controls.Add(fracImpLbl);
             flowLayoutPanel1.Controls.Add(fracImpTxtBx);
-            flowLayoutPanel1.SetFlowBreak(fracImpTxtBx, true);
+            flowLayoutPanel1.Controls.Add(fracImpCheck);
+            flowLayoutPanel1.SetFlowBreak(fracImpCheck, true);
 
             flowLayoutPanel1.Controls.Add(permLbl);
             flowLayoutPanel1.Controls.Add(permTxtBx);
-            flowLayoutPanel1.SetFlowBreak(permTxtBx, true);
+            flowLayoutPanel1.Controls.Add(permCheck);
+            flowLayoutPanel1.SetFlowBreak(permCheck, true);
 
             flowLayoutPanel1.Controls.Add(vclogLbl);
             flowLayoutPanel1.Controls.Add(vclogTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vclogTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vclogCheck);
+            flowLayoutPanel1.SetFlowBreak(vclogCheck, true);
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
@@ -293,24 +392,45 @@ namespace SWMM2PEST
             seepageTxtBx.Text = Convert.ToString(lid.getStorage()[2]);
             vclogTxtBx.Text = Convert.ToString(lid.getStorage()[3]);
 
+            CheckBox heightCheck = new CheckBox();
+            heightCheck.Name = "heightCheck";
+            cBoxes.Add(heightCheck);
+            heightCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vRatioCheck = new CheckBox();
+            vRatioCheck.Name = "VRatioCheck";
+            cBoxes.Add(vRatioCheck);
+            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox seepageCheck = new CheckBox();
+            seepageCheck.Name = "SeepageCheck";
+            cBoxes.Add(seepageCheck);
+            seepageCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vclogCheck = new CheckBox();
+            vclogCheck.Name = "vclogCheck";
+            cBoxes.Add(vclogCheck);
+            vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+
             flowLayoutPanel1.Controls.Add(storLbl);
             flowLayoutPanel1.SetFlowBreak(storLbl, true);
 
             flowLayoutPanel1.Controls.Add(heightLbl);
             flowLayoutPanel1.Controls.Add(heightTxtBx);
-            flowLayoutPanel1.SetFlowBreak(heightTxtBx, true);
+            flowLayoutPanel1.Controls.Add(heightCheck);
+            flowLayoutPanel1.SetFlowBreak(heightCheck, true);
 
-            flowLayoutPanel1.Controls.Add(vRatioLbl);;
+            flowLayoutPanel1.Controls.Add(vRatioLbl); ;
             flowLayoutPanel1.Controls.Add(vRatioTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vRatioTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vRatioCheck);
+            flowLayoutPanel1.SetFlowBreak(vRatioCheck, true);
 
             flowLayoutPanel1.Controls.Add(seepageLbl);
             flowLayoutPanel1.Controls.Add(seepageTxtBx);
-            flowLayoutPanel1.SetFlowBreak(seepageTxtBx, true);
+            flowLayoutPanel1.Controls.Add(seepageCheck);
+            flowLayoutPanel1.SetFlowBreak(seepageCheck, true);
 
             flowLayoutPanel1.Controls.Add(vclogLbl);
             flowLayoutPanel1.Controls.Add(vclogTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vclogTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vclogCheck);
+            flowLayoutPanel1.SetFlowBreak(vclogCheck, true);
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
@@ -324,7 +444,8 @@ namespace SWMM2PEST
             bool hasDelay = false; //only rainbarrel use drain delay
             bool hasOpenClose = false; // older swmm files don't have open level or closed level
             bool hasCurve = false;
-            if(lid.getDrain().Length == 5) { hasOpenClose = true; }
+            if (lid.getCurveName() != "") { hasCurve = true; }
+            if (lid.getDrain().Length == 5) { hasOpenClose = true; }
             Label drainLbl = new Label();
             Label coeffLbl = new Label();
             Label exponLbl = new Label();
@@ -338,34 +459,50 @@ namespace SWMM2PEST
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(coeffLbl, "coefficient C that determines the rate of flow through the drain as a function of height of stored water above the drain bottom.For Rooftop Disconnection it is the maximum flow rate(in inches / hour or mm / hour) that the roof’s gutters and downspouts can handle before overflowing.");
             tooltip1.SetToolTip(exponLbl, "exponent n that determines the rate of flow through the drain as a function of height of stored water above the drain outlet.");
-            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");            
+            tooltip1.SetToolTip(offsetLbl, "height of the drain line above the bottom of the storage layer or rain barrel(inches or mm).");
 
             TextBox coeffTxtBx = new TextBox();
             TextBox exponTxtBx = new TextBox();
             TextBox offsetTxtBx = new TextBox();
-            
+
             coeffTxtBx.Enabled = false;
             exponTxtBx.Enabled = false;
             offsetTxtBx.Enabled = false;
-            
+
             coeffTxtBx.Text = Convert.ToString(lid.getDrain()[0]);
             exponTxtBx.Text = Convert.ToString(lid.getDrain()[1]);
-            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);            
+            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);
+
+            CheckBox coeffCheck = new CheckBox();
+            coeffCheck.Name = "CoeffCheck";
+            cBoxes.Add(coeffCheck);
+            coeffCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox exponCheck = new CheckBox();
+            exponCheck.Name = "ExponCheck";
+            cBoxes.Add(exponCheck);
+            exponCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox offsetCheck = new CheckBox();
+            offsetCheck.Name = "OffsetCheck";
+            cBoxes.Add(offsetCheck);
+            offsetCheck.CheckedChanged += new EventHandler(checkChecked);
 
             flowLayoutPanel1.Controls.Add(drainLbl);
             flowLayoutPanel1.SetFlowBreak(drainLbl, true);
 
             flowLayoutPanel1.Controls.Add(coeffLbl);
             flowLayoutPanel1.Controls.Add(coeffTxtBx);
-            flowLayoutPanel1.SetFlowBreak(coeffTxtBx, true);
+            flowLayoutPanel1.Controls.Add(coeffCheck);
+            flowLayoutPanel1.SetFlowBreak(coeffCheck, true);
 
             flowLayoutPanel1.Controls.Add(exponLbl);
             flowLayoutPanel1.Controls.Add(exponTxtBx);
-            flowLayoutPanel1.SetFlowBreak(exponTxtBx, true);
+            flowLayoutPanel1.Controls.Add(exponCheck);
+            flowLayoutPanel1.SetFlowBreak(exponCheck, true);
 
             flowLayoutPanel1.Controls.Add(offsetLbl);
             flowLayoutPanel1.Controls.Add(offsetTxtBx);
-            flowLayoutPanel1.SetFlowBreak(offsetTxtBx, true);
+            flowLayoutPanel1.Controls.Add(offsetCheck);
+            flowLayoutPanel1.SetFlowBreak(offsetCheck, true);
 
             if (hasOpenClose)
             {
@@ -382,13 +519,24 @@ namespace SWMM2PEST
                 openTxt.Text = Convert.ToString(lid.getDrain()[3]);
                 closedTxt.Text = Convert.ToString(lid.getDrain()[4]);
 
+                CheckBox openCheck = new CheckBox();
+                openCheck.Name = "OpenCheck";
+                cBoxes.Add(openCheck);
+                openCheck.CheckedChanged += new EventHandler(checkChecked);
+                CheckBox closeCheck = new CheckBox();
+                closeCheck.Name = "CloseCheck";
+                cBoxes.Add(closeCheck);
+                closeCheck.CheckedChanged += new EventHandler(checkChecked);
+
                 flowLayoutPanel1.Controls.Add(openLbl);
                 flowLayoutPanel1.Controls.Add(openTxt);
-                flowLayoutPanel1.SetFlowBreak(openTxt, true);
+                flowLayoutPanel1.Controls.Add(openCheck);
+                flowLayoutPanel1.SetFlowBreak(openCheck, true);
 
                 flowLayoutPanel1.Controls.Add(closedLbl);
                 flowLayoutPanel1.Controls.Add(closedTxt);
-                flowLayoutPanel1.SetFlowBreak(closedTxt, true);
+                flowLayoutPanel1.Controls.Add(closeCheck);
+                flowLayoutPanel1.SetFlowBreak(closeCheck, true);
             }
             else
             {
@@ -399,9 +547,15 @@ namespace SWMM2PEST
                 delayTxtBx.Enabled = false;
                 delayTxtBx.Text = Convert.ToString(lid.getDrain()[3]);
 
+                CheckBox delayCheck = new CheckBox();
+                delayCheck.Name = "DelayCheck";
+                cBoxes.Add(delayCheck);
+                delayCheck.CheckedChanged += new EventHandler(checkChecked);
+
                 flowLayoutPanel1.Controls.Add(delayLbl);
                 flowLayoutPanel1.Controls.Add(delayTxtBx);
-                flowLayoutPanel1.SetFlowBreak(delayTxtBx, true);
+                flowLayoutPanel1.Controls.Add(delayCheck);
+                flowLayoutPanel1.SetFlowBreak(delayCheck, true);
 
             }
 
@@ -419,21 +573,21 @@ namespace SWMM2PEST
             Label thickLbl = new Label();
             Label vRatioLbl = new Label();
             Label roughLbl = new Label();
-            
+
             drainmLbl.Text = "Drainmat";
             thickLbl.Text = "thick";
-            vRatioLbl.Text = "expon";
-            roughLbl.Text = "offset";
+            vRatioLbl.Text = "vRatio";
+            roughLbl.Text = "rough";
 
             ToolTip tooltip1 = new ToolTip();
             tooltip1.SetToolTip(thickLbl, "thickness of the drainage mat (inches or mm).");
             tooltip1.SetToolTip(vRatioLbl, "ratio of void volume to total volume in the mat.");
             tooltip1.SetToolTip(roughLbl, "Manning's n constant used to compute the horizontal flow rate of drained water through the mat.");
-            
+
             TextBox thickTxtBx = new TextBox();
             TextBox vRatioTxtBx = new TextBox();
             TextBox roughTxtBx = new TextBox();
-           
+
             thickTxtBx.Enabled = false;
             vRatioTxtBx.Enabled = false;
             roughTxtBx.Enabled = false;
@@ -442,20 +596,39 @@ namespace SWMM2PEST
             vRatioTxtBx.Text = Convert.ToString(lid.getDrainmat()[1]);
             roughTxtBx.Text = Convert.ToString(lid.getDrainmat()[2]);
 
+            CheckBox thickCheck = new CheckBox();
+            thickCheck.Name = "DrainmatThickCheck";
+            cBoxes.Add(thickCheck);
+            thickCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox vRatioCheck = new CheckBox();
+            vRatioCheck.Name = "DrainmatVRatioCheck";
+            cBoxes.Add(vRatioCheck);
+            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox roughCheck = new CheckBox();
+            roughCheck.Name = "DrainmatRoughCheck";
+            cBoxes.Add(roughCheck);
+            roughCheck.CheckedChanged += new EventHandler(checkChecked);
+
+
+
+
             flowLayoutPanel1.Controls.Add(drainmLbl);
             flowLayoutPanel1.SetFlowBreak(drainmLbl, true);
 
             flowLayoutPanel1.Controls.Add(thickLbl);
             flowLayoutPanel1.Controls.Add(thickTxtBx);
-            flowLayoutPanel1.SetFlowBreak(thickTxtBx, true);
+            flowLayoutPanel1.Controls.Add(thickCheck);
+            flowLayoutPanel1.SetFlowBreak(thickCheck, true);
 
             flowLayoutPanel1.Controls.Add(vRatioLbl);
             flowLayoutPanel1.Controls.Add(vRatioTxtBx);
-            flowLayoutPanel1.SetFlowBreak(vRatioTxtBx, true);
+            flowLayoutPanel1.Controls.Add(vRatioCheck);
+            flowLayoutPanel1.SetFlowBreak(vRatioCheck, true);
 
             flowLayoutPanel1.Controls.Add(roughLbl);
             flowLayoutPanel1.Controls.Add(roughTxtBx);
-            flowLayoutPanel1.SetFlowBreak(roughTxtBx, true);
+            flowLayoutPanel1.Controls.Add(roughCheck);
+            flowLayoutPanel1.SetFlowBreak(roughCheck, true);
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
@@ -493,7 +666,7 @@ namespace SWMM2PEST
                 surfaceParameterEdit(lid);
                 storageParameterEdit(lid);
                 drainParameterEdit(lid);
-                
+
             }
             else if (lid.getType() == "PP")
             {
@@ -587,16 +760,24 @@ namespace SWMM2PEST
             suctionTextBox.Text = Convert.ToString(sub.getSuction());
             ksatTextBox.Text = Convert.ToString(sub.getKsat());
             IMDTextBox.Text = Convert.ToString(sub.getIMD());
-            
+
+            CheckBox areaCheck = new CheckBox();
+            areaCheck.Name = "SubAreaCheck";
+            cBoxes.Add(areaCheck);
+            CheckBox widthCheck = new CheckBox();
+            widthCheck.Name = "SubWidthCheck";
+            cBoxes.Add(widthCheck);
+
+
             flowLayoutPanel1.Controls.Add(areaLabel);
-            flowLayoutPanel1.SetFlowBreak(areaLabel, true);
             flowLayoutPanel1.Controls.Add(areaTextBox);
-            flowLayoutPanel1.SetFlowBreak(areaTextBox, true);
+            flowLayoutPanel1.Controls.Add(areaCheck);
+            flowLayoutPanel1.SetFlowBreak(areaCheck, true);
 
             flowLayoutPanel1.Controls.Add(widthLabel);
-            flowLayoutPanel1.SetFlowBreak(widthLabel, true);
             flowLayoutPanel1.Controls.Add(widthTextBox);
-            flowLayoutPanel1.SetFlowBreak(widthTextBox, true);
+            flowLayoutPanel1.Controls.Add(widthCheck);
+            flowLayoutPanel1.SetFlowBreak(widthCheck, true);
 
             flowLayoutPanel1.Controls.Add(percentSlopeLabel);
             flowLayoutPanel1.Controls.Add(percentSlopeTextBox);
@@ -650,19 +831,26 @@ namespace SWMM2PEST
                 {
                     nodeSubs[x] = new TreeNode(subs[x].getName());
                 }
-                
+
                 TreeNode[] nodeLID = new TreeNode[lids.Count];
                 for (int x = 0; x < lids.Count; x++)
                 {
                     nodeLID[x] = new TreeNode(lids[x].getName());
                 }
-                
+
+                TreeNode[] nodeCurves = new TreeNode[curves.Count];
+                for (int x = 0; x < curves.Count; x++)
+                {
+                    nodeCurves[x] = new TreeNode(curves[x].getName());
+                }
+
 
                 TreeNode subcatchment = new TreeNode("Subcatchments", nodeSubs);
                 TreeNode LID = new TreeNode("LID Controls", nodeLID);
-                TreeNode[] Hydrology = new TreeNode[] { subcatchment, LID  };
-                TreeNode treeNode = new TreeNode("Hydrology", Hydrology);
-                treeView1.Nodes.Add(treeNode);
+                TreeNode hydrology = new TreeNode("Hydrology", new TreeNode[] { subcatchment, LID });
+                TreeNode curveNode = new TreeNode("Curves", nodeCurves);
+                treeView1.Nodes.Add(hydrology);
+                treeView1.Nodes.Add(curveNode);
             }
         }
 
@@ -687,6 +875,7 @@ namespace SWMM2PEST
                 ReadInputFile rif = new ReadInputFile(fileName);
                 subs = rif.GetSubcatchments();
                 lids = rif.getLIDs();
+                curves = rif.getCurves();
             }
             createComponentsTree();
         }
@@ -710,7 +899,12 @@ namespace SWMM2PEST
                     createParameterEditLID(currentLID);
                 }
             }
-            
+
+        }
+
+        private void checkChecked (object sender, EventArgs e)
+        {
+            Console.WriteLine("check");
         }
     }
 }

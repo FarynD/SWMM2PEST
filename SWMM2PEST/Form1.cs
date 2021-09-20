@@ -704,7 +704,7 @@ namespace SWMM2PEST
             Label NPervLabel = new Label();
             Label SImpervLabel = new Label();
             Label SPervLabel = new Label();
-            Label PercentZeroImpervLabel = new Label();
+            Label percentZeroImpervLabel = new Label();
             Label suctionLabel = new Label();
             Label ksatLabel = new Label();
             Label IMDLabel = new Label();
@@ -717,7 +717,7 @@ namespace SWMM2PEST
             NPervLabel.Text = "Pervious Area Roughness";
             SImpervLabel.Text = "Impervious Area Depression Storage";
             SPervLabel.Text = "Pervious Area Depression Storage";
-            PercentZeroImpervLabel.Text = "Percent of Impervious Area with No Depression Storage";
+            percentZeroImpervLabel.Text = "Percent of Impervious Area with No Depression Storage";
             suctionLabel.Text = "Suction";
             ksatLabel.Text = "Hydraulic Conductivitiy";
             IMDLabel.Text = "Initial Moisture Deficiet";
@@ -730,7 +730,7 @@ namespace SWMM2PEST
             TextBox NPervTextBox = new TextBox();
             TextBox SImpervTextBox = new TextBox();
             TextBox SPervTextBox = new TextBox();
-            TextBox PercentZeroImpervTextBox = new TextBox();
+            TextBox percentZeroImpervTextBox = new TextBox();
             TextBox suctionTextBox = new TextBox();
             TextBox ksatTextBox = new TextBox();
             TextBox IMDTextBox = new TextBox();
@@ -743,7 +743,7 @@ namespace SWMM2PEST
             NPervTextBox.Enabled = false;
             SImpervTextBox.Enabled = false;
             SPervTextBox.Enabled = false;
-            PercentZeroImpervTextBox.Enabled = false;
+            percentZeroImpervTextBox.Enabled = false;
             suctionTextBox.Enabled = false;
             ksatTextBox.Enabled = false;
             IMDTextBox.Enabled = false;
@@ -756,17 +756,62 @@ namespace SWMM2PEST
             NPervTextBox.Text = Convert.ToString(sub.getNPerv());
             SImpervTextBox.Text = Convert.ToString(sub.getSImperv());
             SPervTextBox.Text = Convert.ToString(sub.getSPerv());
-            PercentZeroImpervTextBox.Text = Convert.ToString(sub.getPercentZeroImperv());
+            percentZeroImpervTextBox.Text = Convert.ToString(sub.getPercentZeroImperv());
             suctionTextBox.Text = Convert.ToString(sub.getSuction());
             ksatTextBox.Text = Convert.ToString(sub.getKsat());
             IMDTextBox.Text = Convert.ToString(sub.getIMD());
 
+            
+
             CheckBox areaCheck = new CheckBox();
-            areaCheck.Name = "SubAreaCheck";
+            areaCheck.Name = "AreaCheck";
             cBoxes.Add(areaCheck);
+            areaCheck.CheckedChanged += new EventHandler(checkChecked);
             CheckBox widthCheck = new CheckBox();
-            widthCheck.Name = "SubWidthCheck";
+            widthCheck.Name = "widthCheck";
             cBoxes.Add(widthCheck);
+            widthCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox percentSlopeCheck = new CheckBox();
+            percentSlopeCheck.Name = "PercentSlopeCheck";
+            cBoxes.Add(percentSlopeCheck);
+            percentSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox percentImpervCheck = new CheckBox();
+            percentImpervCheck.Name = "PercentImpervCheck";
+            cBoxes.Add(percentImpervCheck);
+            percentImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox NImpervCheck = new CheckBox();
+            NImpervCheck.Name = "NImpervCheck";
+            cBoxes.Add(NImpervCheck);
+            NImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox NPervCheck = new CheckBox();
+            NPervCheck.Name = "NPervCheck";
+            cBoxes.Add(NPervCheck);
+            NPervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox SImpervCheck = new CheckBox();
+            SImpervCheck.Name = "SImpervCheck";
+            cBoxes.Add(SImpervCheck);
+            SImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox SPervCheck = new CheckBox();
+            SPervCheck.Name = "SPervCheck";
+            cBoxes.Add(SPervCheck);
+            SPervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox percentZeroImpervCheck = new CheckBox();
+            percentZeroImpervCheck.Name = "PercentZeroImpervCheck";
+            cBoxes.Add(percentZeroImpervCheck);
+            percentZeroImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox suctionCheck = new CheckBox();
+            suctionCheck.Name = "SuctionCheck";
+            cBoxes.Add(suctionCheck);
+            suctionCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox ksatCheck = new CheckBox();
+            ksatCheck.Name = "KsatCheck";
+            cBoxes.Add(ksatCheck);
+            ksatCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox IMDCheck = new CheckBox();
+            IMDCheck.Name = "IMDCheck";
+            cBoxes.Add(IMDCheck);
+            IMDCheck.CheckedChanged += new EventHandler(checkChecked);
+
 
 
             flowLayoutPanel1.Controls.Add(areaLabel);
@@ -781,43 +826,53 @@ namespace SWMM2PEST
 
             flowLayoutPanel1.Controls.Add(percentSlopeLabel);
             flowLayoutPanel1.Controls.Add(percentSlopeTextBox);
-            flowLayoutPanel1.SetFlowBreak(percentSlopeTextBox, true);
+            flowLayoutPanel1.Controls.Add(percentSlopeCheck);
+            flowLayoutPanel1.SetFlowBreak(percentSlopeCheck, true);
 
             flowLayoutPanel1.Controls.Add(percentImpervLabel);
             flowLayoutPanel1.Controls.Add(percentImpervTextBox);
-            flowLayoutPanel1.SetFlowBreak(percentImpervTextBox, true);
+            flowLayoutPanel1.Controls.Add(percentImpervCheck);
+            flowLayoutPanel1.SetFlowBreak(percentImpervCheck, true);
 
             flowLayoutPanel1.Controls.Add(NImpervLabel);
             flowLayoutPanel1.Controls.Add(NImpervTextBox);
-            flowLayoutPanel1.SetFlowBreak(NImpervTextBox, true);
+            flowLayoutPanel1.Controls.Add(NImpervCheck);
+            flowLayoutPanel1.SetFlowBreak(NImpervCheck, true);
 
             flowLayoutPanel1.Controls.Add(NPervLabel);
             flowLayoutPanel1.Controls.Add(NPervTextBox);
-            flowLayoutPanel1.SetFlowBreak(NPervTextBox, true);
+            flowLayoutPanel1.Controls.Add(NPervCheck);
+            flowLayoutPanel1.SetFlowBreak(NPervCheck, true);
 
             flowLayoutPanel1.Controls.Add(SImpervLabel);
             flowLayoutPanel1.Controls.Add(SImpervTextBox);
-            flowLayoutPanel1.SetFlowBreak(SImpervTextBox, true);
+            flowLayoutPanel1.Controls.Add(SImpervCheck);
+            flowLayoutPanel1.SetFlowBreak(SImpervCheck, true);
 
             flowLayoutPanel1.Controls.Add(SPervLabel);
             flowLayoutPanel1.Controls.Add(SPervTextBox);
-            flowLayoutPanel1.SetFlowBreak(SPervTextBox, true);
+            flowLayoutPanel1.Controls.Add(SPervCheck);
+            flowLayoutPanel1.SetFlowBreak(SPervCheck, true);
 
-            flowLayoutPanel1.Controls.Add(PercentZeroImpervLabel);
-            flowLayoutPanel1.Controls.Add(PercentZeroImpervTextBox);
-            flowLayoutPanel1.SetFlowBreak(PercentZeroImpervTextBox, true);
+            flowLayoutPanel1.Controls.Add(percentZeroImpervLabel);
+            flowLayoutPanel1.Controls.Add(percentZeroImpervTextBox);
+            flowLayoutPanel1.Controls.Add(percentZeroImpervCheck);
+            flowLayoutPanel1.SetFlowBreak(percentZeroImpervCheck, true);
 
             flowLayoutPanel1.Controls.Add(suctionLabel);
             flowLayoutPanel1.Controls.Add(suctionTextBox);
-            flowLayoutPanel1.SetFlowBreak(suctionTextBox, true);
+            flowLayoutPanel1.Controls.Add(suctionCheck);
+            flowLayoutPanel1.SetFlowBreak(suctionCheck, true);
 
             flowLayoutPanel1.Controls.Add(ksatLabel);
             flowLayoutPanel1.Controls.Add(ksatTextBox);
-            flowLayoutPanel1.SetFlowBreak(ksatTextBox, true);
+            flowLayoutPanel1.Controls.Add(ksatCheck);
+            flowLayoutPanel1.SetFlowBreak(ksatCheck, true);
 
             flowLayoutPanel1.Controls.Add(IMDLabel);
             flowLayoutPanel1.Controls.Add(IMDTextBox);
-            flowLayoutPanel1.SetFlowBreak(IMDTextBox, true);
+            flowLayoutPanel1.Controls.Add(IMDCheck);
+            flowLayoutPanel1.SetFlowBreak(IMDCheck, true);
 
 
         }

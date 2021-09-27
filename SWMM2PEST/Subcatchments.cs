@@ -12,52 +12,55 @@ namespace SWMM2PEST
     {
         //Subcatchments
         string name;
-        double area;
-        double width;
-        double percentSlope;
+        Parameter area;
+        Parameter width;
+        Parameter percentSlope;
         //Subareas
-        double percentImperv;
-        double NImperv; //Impervious area roughness
-        double NPerv; //Pervious area roughness
-        double SImperv; //Impervious area depression storage
-        double SPerv; //Pervious Area Depression Storage
-        double percentZeroImperv; //% of impervious area with no depression storage
+        Parameter percentImperv;
+        Parameter NImperv; //Impervious area roughness
+        Parameter NPerv; //Pervious area roughness
+        Parameter SImperv; //Impervious area depression storage
+        Parameter SPerv; //Pervious Area Depression Storage
+        Parameter percentZeroImperv; //% of impervious area with no depression storage
         //Infiltration
-        double suction;
-        double ksat; //Hydraulic Conductivity
-        int IMD; //Initial moisture deficiet
+        Parameter suction;
+        Parameter ksat; //Hydraulic Conductivity
+        Parameter IMD; //Initial moisture deficiet
         //LIDS
         ArrayList LIDs;
 
         
+
+
+        
         public string getName() { return name; }
-        public double getArea() { return area; }
-        public double getWidth() { return width; }
-        public double getPercentSlope() { return percentSlope; }
-        public double getPercentImperv() { return percentImperv; }
-        public double getNImperv() { return NImperv; }
-        public double getNPerv() { return NPerv; }
-        public double getSImperv() { return SImperv; }
-        public double getSPerv() { return SPerv; }
-        public double getPercentZeroImperv() { return percentZeroImperv; }
-        public double getSuction() { return suction; }
-        public double getKsat() { return ksat; }
-        public double getIMD() { return IMD; }
+        public Parameter getArea() { return area; }
+        public Parameter getWidth() { return width; }
+        public Parameter getPercentSlope() { return percentSlope; }
+        public Parameter getPercentImperv() { return percentImperv; }
+        public Parameter getNImperv() { return NImperv; }
+        public Parameter getNPerv() { return NPerv; }
+        public Parameter getSImperv() { return SImperv; }
+        public Parameter getSPerv() { return SPerv; }
+        public Parameter getPercentZeroImperv() { return percentZeroImperv; }
+        public Parameter getSuction() { return suction; }
+        public Parameter getKsat() { return ksat; }
+        public Parameter getIMD() { return IMD; }
         public ArrayList getLIDs() { return LIDs; }
 
         public void setName(string aName) { name = aName; }
-        public void setArea(double aArea) { area = aArea; }
-        public void setWidth(double aWidth) { width = aWidth; }
-        public void setPercentSlope(double aPercentSlope) { percentSlope= aPercentSlope; }
-        public void setPercentImperv(double aPercentImperv) { percentImperv = aPercentImperv; }
-        public void setNImperv(double aNImperv) { NImperv = aNImperv; }
-        public void setNPerv(double aNPerv) { NPerv = aNPerv; }
-        public void setSImperv(double aSImperv) { SImperv = aSImperv; }
-        public void setSPerv(double aSPerv) {  SPerv = aSPerv; }
-        public void setPercentZeroImperv(double aPercentZeroImperv) {  percentZeroImperv = aPercentZeroImperv; }
-        public void setSuction(double aSuction) {  suction = aSuction; }
-        public void setKsat(double aKsat) {  ksat = aKsat; }
-        public void setIMD(int aIMD) { IMD = aIMD; }
+        public void setArea(Parameter aArea) { area = aArea; }
+        public void setWidth(Parameter aWidth) { width = aWidth; }
+        public void setPercentSlope(Parameter aPercentSlope) { percentSlope= aPercentSlope; }
+        public void setPercentImperv(Parameter aPercentImperv) { percentImperv = aPercentImperv; }
+        public void setNImperv(Parameter aNImperv) { NImperv = aNImperv; }
+        public void setNPerv(Parameter aNPerv) { NPerv = aNPerv; }
+        public void setSImperv(Parameter aSImperv) { SImperv = aSImperv; }
+        public void setSPerv(Parameter aSPerv) {  SPerv = aSPerv; }
+        public void setPercentZeroImperv(Parameter aPercentZeroImperv) {  percentZeroImperv = aPercentZeroImperv; }
+        public void setSuction(Parameter aSuction) {  suction = aSuction; }
+        public void setKsat(Parameter aKsat) {  ksat = aKsat; }
+        public void setIMD(Parameter aIMD) { IMD = aIMD; }
        
         public void addLID(LID_Controls LID)
         {

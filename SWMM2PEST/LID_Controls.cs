@@ -11,15 +11,15 @@ namespace SWMM2PEST
     {
         string name;
         //Parameters from page 291 of "Storm Water Management Model User's Manual Version 5"
-        double[] surface; //Arr holding all surface parameters: [StorHt, VegFrac, Rough, Slope, Xslope] 
-        double[] soil; //Arr holding all soil parameters: [Thick, Por, FC, WP, ksat, kcoeff, suct ]
-        double[] pavement; //arr holding all pavement parameters: [Thick, Vratio, FracImp, Perm, Vclog]
-        double[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
-        double[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay, open level (newer version of swmm only), closed level (newer version of swmm only)]
+        Parameter[] surface; //Arr holding all surface parameters: [StorHt, VegFrac, Rough, Slope, Xslope] 
+        Parameter[] soil; //Arr holding all soil parameters: [Thick, Por, FC, WP, ksat, kcoeff, suct ]
+        Parameter[] pavement; //arr holding all pavement parameters: [Thick, Vratio, FracImp, Perm, Vclog]
+        Parameter[] storage; //Arr holding all storage parameters: [Height, Vratio, Seepage, Vclog]
+        Parameter[] drain; //Arr holding all Drain parameters: [Coeff, Expon, offset, Delay, open level (newer version of swmm only), closed level (newer version of swmm only)]
         //For drain older files have coeff, expon, offset,delay
-        double[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
+        Parameter[] drainmat; //Arr holding all drainmat parameters: [Thick, Vratio, Rough]
         //LID usage. Parameters taken from Swmm input files.
-        double[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
+        Parameter[] LIDUsage; //Arr holding all LID Usage parameters: [number, area, width, initSat, toPerv]
         string curve;
         string type;
         List<string> checkedParas;
@@ -36,36 +36,36 @@ namespace SWMM2PEST
          */
 
         public string getName() { return name; }
-        public double[] getSurface()
+        public Parameter[] getSurface()
         {
             return surface;
         }
-        public double[] getSoil()
+        public Parameter[] getSoil()
         {
             return soil;
         }
 
-        public double[] getPavement()
+        public Parameter[] getPavement()
         {
             return pavement;
         }
 
-        public double[] getStorage()
+        public Parameter[] getStorage()
         {
             return storage;
         }
 
-        public double[] getDrain()
+        public Parameter[] getDrain()
         {
             return drain;
         }
 
-        public double[] getDrainmat()
+        public Parameter[] getDrainmat()
         {
             return drainmat;
         }
 
-        public double[] getLIDUsage()
+        public Parameter[] getLIDUsage()
         {
             return LIDUsage;
         }
@@ -82,19 +82,19 @@ namespace SWMM2PEST
 
         public void setName(string aName) { name = aName; }
 
-        public void setSurface(double[] aSurface) { surface = aSurface; }
+        public void setSurface(Parameter[] aSurface) { surface = aSurface; }
 
-        public void setSoil(double[] aSoil) { soil = aSoil; }
+        public void setSoil(Parameter[] aSoil) { soil = aSoil; }
 
-        public void setPavement(double[] aPavement) { pavement = aPavement; }
+        public void setPavement(Parameter[] aPavement) { pavement = aPavement; }
 
-        public void setStorage(double[] aStorage) { storage = aStorage; }
+        public void setStorage(Parameter[] aStorage) { storage = aStorage; }
 
-        public void setDrain(double[] aDrain) { drain = aDrain; }
+        public void setDrain(Parameter[] aDrain) { drain = aDrain; }
 
-        public void setDrainmat(double[] aDrainmat) { drainmat = aDrainmat; }
+        public void setDrainmat(Parameter[] aDrainmat) { drainmat = aDrainmat; }
 
-        public void setLIDUsage(double[] aLIDUsage) { LIDUsage = aLIDUsage; }
+        public void setLIDUsage(Parameter[] aLIDUsage) { LIDUsage = aLIDUsage; }
 
         public void setCurveName(string aCurve) { curve = aCurve; }
         public void setType(string aType) { type = aType; }

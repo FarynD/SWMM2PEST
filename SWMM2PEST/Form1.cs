@@ -71,11 +71,11 @@ namespace SWMM2PEST
             slopeTxtBx.Enabled = false;
             xSlopeTxtBx.Enabled = false;
 
-            storHtTxtBx.Text = Convert.ToString(lid.getSurface()[0]);
-            vegFracTxtBx.Text = Convert.ToString(lid.getSurface()[1]);
-            roughTxtBx.Text = Convert.ToString(lid.getSurface()[2]);
-            slopeTxtBx.Text = Convert.ToString(lid.getSurface()[3]);
-            xSlopeTxtBx.Text = Convert.ToString(lid.getSurface()[4]);
+            storHtTxtBx.Text = Convert.ToString(lid.getSurface()[0].getValue());
+            vegFracTxtBx.Text = Convert.ToString(lid.getSurface()[1].getValue());
+            roughTxtBx.Text = Convert.ToString(lid.getSurface()[2].getValue());
+            slopeTxtBx.Text = Convert.ToString(lid.getSurface()[3].getValue());
+            xSlopeTxtBx.Text = Convert.ToString(lid.getSurface()[4].getValue());
 
             CheckBox storHtCheck = new CheckBox();
             storHtCheck.Name = "StorHtCheck";
@@ -180,13 +180,13 @@ namespace SWMM2PEST
             kcoeffTxtBx.Enabled = false;
             suctTxtBx.Enabled = false;
 
-            thickTxtBx.Text = Convert.ToString(lid.getSoil()[0]);
-            porTxtBx.Text = Convert.ToString(lid.getSoil()[1]);
-            fcTxtBx.Text = Convert.ToString(lid.getSoil()[2]);
-            wpTxtBx.Text = Convert.ToString(lid.getSoil()[3]);
-            ksatTxtBx.Text = Convert.ToString(lid.getSoil()[4]);
-            kcoeffTxtBx.Text = Convert.ToString(lid.getSoil()[5]);
-            suctTxtBx.Text = Convert.ToString(lid.getSoil()[6]);
+            thickTxtBx.Text = Convert.ToString(lid.getSoil()[0].getValue());
+            porTxtBx.Text = Convert.ToString(lid.getSoil()[1].getValue());
+            fcTxtBx.Text = Convert.ToString(lid.getSoil()[2].getValue());
+            wpTxtBx.Text = Convert.ToString(lid.getSoil()[3].getValue());
+            ksatTxtBx.Text = Convert.ToString(lid.getSoil()[4].getValue());
+            kcoeffTxtBx.Text = Convert.ToString(lid.getSoil()[5].getValue());
+            suctTxtBx.Text = Convert.ToString(lid.getSoil()[6].getValue());
 
             CheckBox thickCheck = new CheckBox();
             thickCheck.Name = "SoilThickCheck";
@@ -296,11 +296,11 @@ namespace SWMM2PEST
             permTxtBx.Enabled = false;
             vclogTxtBx.Enabled = false;
 
-            thickTxtBx.Text = Convert.ToString(lid.getPavement()[0]);
-            vRatioTxtBx.Text = Convert.ToString(lid.getPavement()[1]);
-            fracImpTxtBx.Text = Convert.ToString(lid.getPavement()[2]);
-            permTxtBx.Text = Convert.ToString(lid.getPavement()[3]);
-            vclogTxtBx.Text = Convert.ToString(lid.getPavement()[4]);
+            thickTxtBx.Text = Convert.ToString(lid.getPavement()[0].getValue());
+            vRatioTxtBx.Text = Convert.ToString(lid.getPavement()[1].getValue());
+            fracImpTxtBx.Text = Convert.ToString(lid.getPavement()[2].getValue());
+            permTxtBx.Text = Convert.ToString(lid.getPavement()[3].getValue());
+            vclogTxtBx.Text = Convert.ToString(lid.getPavement()[4].getValue());
 
             CheckBox thickCheck = new CheckBox();
             thickCheck.Name = "PavementThickCheck";
@@ -387,10 +387,10 @@ namespace SWMM2PEST
             seepageTxtBx.Enabled = false;
             vclogTxtBx.Enabled = false;
 
-            heightTxtBx.Text = Convert.ToString(lid.getStorage()[0]);
-            vRatioTxtBx.Text = Convert.ToString(lid.getStorage()[1]);
-            seepageTxtBx.Text = Convert.ToString(lid.getStorage()[2]);
-            vclogTxtBx.Text = Convert.ToString(lid.getStorage()[3]);
+            heightTxtBx.Text = Convert.ToString(lid.getStorage()[0].getValue());
+            vRatioTxtBx.Text = Convert.ToString(lid.getStorage()[1].getValue());
+            seepageTxtBx.Text = Convert.ToString(lid.getStorage()[2].getValue());
+            vclogTxtBx.Text = Convert.ToString(lid.getStorage()[3].getValue());
 
             CheckBox heightCheck = new CheckBox();
             heightCheck.Name = "heightCheck";
@@ -469,9 +469,9 @@ namespace SWMM2PEST
             exponTxtBx.Enabled = false;
             offsetTxtBx.Enabled = false;
 
-            coeffTxtBx.Text = Convert.ToString(lid.getDrain()[0]);
-            exponTxtBx.Text = Convert.ToString(lid.getDrain()[1]);
-            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2]);
+            coeffTxtBx.Text = Convert.ToString(lid.getDrain()[0].getValue());
+            exponTxtBx.Text = Convert.ToString(lid.getDrain()[1].getValue());
+            offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2].getValue());
 
             CheckBox coeffCheck = new CheckBox();
             coeffCheck.Name = "CoeffCheck";
@@ -516,8 +516,8 @@ namespace SWMM2PEST
                 TextBox closedTxt = new TextBox();
                 openTxt.Enabled = false;
                 closedTxt.Enabled = false;
-                openTxt.Text = Convert.ToString(lid.getDrain()[3]);
-                closedTxt.Text = Convert.ToString(lid.getDrain()[4]);
+                openTxt.Text = Convert.ToString(lid.getDrain()[3].getValue());
+                closedTxt.Text = Convert.ToString(lid.getDrain()[4].getValue());
 
                 CheckBox openCheck = new CheckBox();
                 openCheck.Name = "OpenCheck";
@@ -545,7 +545,7 @@ namespace SWMM2PEST
                 tooltip1.SetToolTip(delayLbl, "number of dry weather hours that must elapse before the drain line in a rain barrel is opened(the line is assumed to be closed once rainfall begins).A value of 0 signifies that the barrel's drain line is always open and drains continuously.This parameter is ignored for other types of LIDs.");
                 TextBox delayTxtBx = new TextBox();
                 delayTxtBx.Enabled = false;
-                delayTxtBx.Text = Convert.ToString(lid.getDrain()[3]);
+                delayTxtBx.Text = Convert.ToString(lid.getDrain()[3].getValue());
 
                 CheckBox delayCheck = new CheckBox();
                 delayCheck.Name = "DelayCheck";
@@ -592,9 +592,9 @@ namespace SWMM2PEST
             vRatioTxtBx.Enabled = false;
             roughTxtBx.Enabled = false;
 
-            thickTxtBx.Text = Convert.ToString(lid.getDrainmat()[0]);
-            vRatioTxtBx.Text = Convert.ToString(lid.getDrainmat()[1]);
-            roughTxtBx.Text = Convert.ToString(lid.getDrainmat()[2]);
+            thickTxtBx.Text = Convert.ToString(lid.getDrainmat()[0].getValue());
+            vRatioTxtBx.Text = Convert.ToString(lid.getDrainmat()[1].getValue());
+            roughTxtBx.Text = Convert.ToString(lid.getDrainmat()[2].getValue());
 
             CheckBox thickCheck = new CheckBox();
             thickCheck.Name = "DrainmatThickCheck";
@@ -748,18 +748,18 @@ namespace SWMM2PEST
             ksatTextBox.Enabled = false;
             IMDTextBox.Enabled = false;
 
-            areaTextBox.Text = Convert.ToString(sub.getArea());
-            widthTextBox.Text = Convert.ToString(sub.getWidth());
-            percentSlopeTextBox.Text = Convert.ToString(sub.getPercentSlope());
-            percentImpervTextBox.Text = Convert.ToString(sub.getPercentImperv());
-            NImpervTextBox.Text = Convert.ToString(sub.getNImperv());
-            NPervTextBox.Text = Convert.ToString(sub.getNPerv());
-            SImpervTextBox.Text = Convert.ToString(sub.getSImperv());
-            SPervTextBox.Text = Convert.ToString(sub.getSPerv());
-            percentZeroImpervTextBox.Text = Convert.ToString(sub.getPercentZeroImperv());
-            suctionTextBox.Text = Convert.ToString(sub.getSuction());
-            ksatTextBox.Text = Convert.ToString(sub.getKsat());
-            IMDTextBox.Text = Convert.ToString(sub.getIMD());
+            areaTextBox.Text = Convert.ToString(sub.getArea().getValue());
+            widthTextBox.Text = Convert.ToString(sub.getWidth().getValue());
+            percentSlopeTextBox.Text = Convert.ToString(sub.getPercentSlope().getValue());
+            percentImpervTextBox.Text = Convert.ToString(sub.getPercentImperv().getValue());
+            NImpervTextBox.Text = Convert.ToString(sub.getNImperv().getValue());
+            NPervTextBox.Text = Convert.ToString(sub.getNPerv().getValue());
+            SImpervTextBox.Text = Convert.ToString(sub.getSImperv().getValue());
+            SPervTextBox.Text = Convert.ToString(sub.getSPerv().getValue());
+            percentZeroImpervTextBox.Text = Convert.ToString(sub.getPercentZeroImperv().getValue());
+            suctionTextBox.Text = Convert.ToString(sub.getSuction().getValue());
+            ksatTextBox.Text = Convert.ToString(sub.getKsat().getValue());
+            IMDTextBox.Text = Convert.ToString(sub.getIMD().getValue());
 
             
 
@@ -959,7 +959,44 @@ namespace SWMM2PEST
 
         private void checkChecked (object sender, EventArgs e)
         {
-            Console.WriteLine("check");
+            //gets the current checked checkboxes
+            currentChecked.Clear();
+            for (int x = 0; x < cBoxes.Count; x++)
+            {
+                if (cBoxes[x].Checked == true)
+                {
+                    currentChecked.Add(cBoxes[x]);
+                }
+            }
+
+            if(currentChecked.Count > lastChecked.Count)
+            {
+                List<CheckBox> justchecked = currentChecked.Except(lastChecked).ToList();
+                Console.WriteLine("checked " + justchecked[0].Name);
+
+                TextBox min = new TextBox();
+                TextBox max = new TextBox();
+                min.Text = "Min";
+                max.Text = "Max";
+
+                flowLayoutPanel1.Controls.Add(min);
+                flowLayoutPanel1.Controls.Add(max);
+                
+                flowLayoutPanel1.Controls.SetChildIndex(min, flowLayoutPanel1.Controls.GetChildIndex(justchecked[0]) + 1);
+                flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min) + 1);              
+                flowLayoutPanel1.SetFlowBreak(max, true);
+            }
+            else
+            {
+                List<CheckBox> justUnChecked = lastChecked.Except(currentChecked).ToList();
+                Console.WriteLine("Unchecked " + justUnChecked[0].Name);
+                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0]) + 1);
+                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0]) + 1);
+            }
+            
+            lastChecked = new List<CheckBox>(currentChecked);
+            
+            
         }
     }
 }

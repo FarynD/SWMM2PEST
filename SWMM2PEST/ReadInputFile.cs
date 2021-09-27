@@ -54,10 +54,10 @@ namespace SWMM2PEST
                         splitLine = splitString(line, ' ');
                         subcatchments.Add(new Subcatchments());
                         subcatchments[num].setName(splitLine[0]);
-                        subcatchments[num].setArea(Convert.ToDouble(splitLine[3]));
-                        subcatchments[num].setPercentImperv(Convert.ToDouble(splitLine[4]));
-                        subcatchments[num].setWidth(Convert.ToDouble(splitLine[5]));
-                        subcatchments[num].setPercentSlope(Convert.ToDouble(splitLine[6]));
+                        subcatchments[num].setArea(new Parameter( Convert.ToDouble(splitLine[3])));
+                        subcatchments[num].setPercentImperv(new Parameter(Convert.ToDouble(splitLine[4])));
+                        subcatchments[num].setWidth(new Parameter(Convert.ToDouble(splitLine[5])));
+                        subcatchments[num].setPercentSlope(new Parameter(Convert.ToDouble(splitLine[6])));
                         line = sr.ReadLine();
                         num++;
                     }
@@ -77,11 +77,11 @@ namespace SWMM2PEST
 
                         
 
-                        subcatchments[num].setNImperv(Convert.ToDouble(splitLine[1]));
-                        subcatchments[num].setNPerv(Convert.ToDouble(splitLine[2]));
-                        subcatchments[num].setSImperv(Convert.ToDouble(splitLine[3]));
-                        subcatchments[num].setSPerv(Convert.ToDouble(splitLine[4]));
-                        subcatchments[num].setPercentZeroImperv(Convert.ToDouble(splitLine[5]));
+                        subcatchments[num].setNImperv(new Parameter(Convert.ToDouble(splitLine[1])));
+                        subcatchments[num].setNPerv(new Parameter(Convert.ToDouble(splitLine[2])));
+                        subcatchments[num].setSImperv(new Parameter(Convert.ToDouble(splitLine[3])));
+                        subcatchments[num].setSPerv(new Parameter(Convert.ToDouble(splitLine[4])));
+                        subcatchments[num].setPercentZeroImperv(new Parameter(Convert.ToDouble(splitLine[5])));
                         line = sr.ReadLine();
                         num++;
                     }
@@ -100,9 +100,9 @@ namespace SWMM2PEST
                         splitLine = splitString(line, ' ');
 
 
-                        subcatchments[num].setSuction(Convert.ToDouble(splitLine[1]));
-                        subcatchments[num].setKsat(Convert.ToDouble(splitLine[2]));
-                        subcatchments[num].setIMD(Convert.ToInt32(splitLine[3]));
+                        subcatchments[num].setSuction(new Parameter(Convert.ToDouble(splitLine[1])));
+                        subcatchments[num].setKsat(new Parameter(Convert.ToDouble(splitLine[2])));
+                        subcatchments[num].setIMD(new Parameter(Convert.ToDouble(splitLine[3])));
 
                         line = sr.ReadLine();
                         num++;
@@ -321,15 +321,15 @@ namespace SWMM2PEST
             return new string[0];
         }
 
-        private double[] createParaArr(string[] data)
+        private Parameter[] createParaArr(string[] data)
         {
-            double[] paraArr = new double[data.Length - 2];
+            Parameter[] paraArr = new Parameter[data.Length - 2];
             int num = 0;
             for (int x = 0; x < data.Length; x++)
             {
                 if (double.TryParse(data[x], out double n))
                 {
-                    paraArr[num] = n;
+                    paraArr[num] = new Parameter(n);
                     num++;
                 }
             }

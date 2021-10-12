@@ -17,10 +17,10 @@ namespace SWMM2PEST
         List<Subcatchments> subs;
         List<LID_Controls> lids;
         List<Curves> curves;
-        List<CheckBox> cBoxes;
+        List<Parameter> parameters;
         string fileName;
-        List<CheckBox> currentChecked;
-        List<CheckBox> lastChecked;
+        List<Parameter> currentChecked;
+        List<Parameter> lastChecked;
         public Form1()
         {
             InitializeComponent();
@@ -28,9 +28,9 @@ namespace SWMM2PEST
             subs = new List<Subcatchments>();
             lids = new List<LID_Controls>();
             curves = new List<Curves>();
-            cBoxes = new List<CheckBox>();
-            currentChecked = new List<CheckBox>();
-            lastChecked = new List<CheckBox>();
+            parameters = new List<Parameter>();
+            currentChecked = new List<Parameter>();
+            lastChecked = new List<Parameter>();
 
 
 
@@ -77,40 +77,80 @@ namespace SWMM2PEST
             slopeTxtBx.Text = Convert.ToString(lid.getSurface()[3].getValue());
             xSlopeTxtBx.Text = Convert.ToString(lid.getSurface()[4].getValue());
 
-            CheckBox storHtCheck = new CheckBox();
-            storHtCheck.Name = "StorHtCheck";
-            cBoxes.Add(storHtCheck);
-            storHtCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vegFracCheck = new CheckBox();
-            vegFracCheck.Name = "VegFracCheck";
-            cBoxes.Add(vegFracCheck);
-            vegFracCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox roughCheck = new CheckBox();
-            roughCheck.Name = "RoughCheck";
-            cBoxes.Add(roughCheck);
-            roughCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox slopeCheck = new CheckBox();
-            slopeCheck.Name = "SlopeCheck";
-            cBoxes.Add(slopeCheck);
-            slopeCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox xSlopeCheck = new CheckBox();
-            xSlopeCheck.Name = "XSlopeCheck";
-            cBoxes.Add(xSlopeCheck);
-            xSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox storHtCheck;
+            if (lid.getSurface()[0].getCheckBox() == null)
+            {
+                storHtCheck = new CheckBox();
+                parameters.Add(lid.getSurface()[0]);
+                storHtCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSurface()[0].setCheckBox(storHtCheck);
+            }
+            else 
+            { storHtCheck = lid.getSurface()[0].getCheckBox();}
+            
+            
 
+            CheckBox vegFracCheck;
+            if (lid.getSurface()[1].getCheckBox() == null)
+            {
+                vegFracCheck = new CheckBox();
+                parameters.Add(lid.getSurface()[1]);
+                vegFracCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSurface()[1].setCheckBox(vegFracCheck);
+            }
+            else{ vegFracCheck = lid.getSurface()[1].getCheckBox(); }               
+                      
+
+            CheckBox roughCheck;
+            if (lid.getSurface()[2].getCheckBox() == null)
+            {
+                roughCheck = new CheckBox();
+                parameters.Add(lid.getSurface()[2]);
+                roughCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSurface()[2].setCheckBox(roughCheck);
+            }
+            else{ roughCheck = lid.getSurface()[2].getCheckBox();}
+
+            CheckBox slopeCheck;
+            if (lid.getSurface()[3].getCheckBox() == null)
+            {
+                slopeCheck = new CheckBox();
+
+                parameters.Add(lid.getSurface()[3]);
+                slopeCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSurface()[3].setCheckBox(slopeCheck);
+            }
+            else { slopeCheck = lid.getSurface()[3].getCheckBox(); }
+
+            CheckBox xSlopeCheck;
+            if (lid.getSurface()[4].getCheckBox() == null)
+            {
+                xSlopeCheck = new CheckBox();
+                parameters.Add(lid.getSurface()[4]);
+                xSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSurface()[4].setCheckBox(xSlopeCheck);
+            }
+            else { xSlopeCheck = lid.getSurface()[4].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(surfaceLbl);
             flowLayoutPanel1.SetFlowBreak(surfaceLbl, true);
 
+            
             flowLayoutPanel1.Controls.Add(storHtLbl);
             flowLayoutPanel1.Controls.Add(storHtTxtBx);
             flowLayoutPanel1.Controls.Add(storHtCheck);
             flowLayoutPanel1.SetFlowBreak(storHtCheck, true);
 
+
+
+
             flowLayoutPanel1.Controls.Add(vegFracLbl);
             flowLayoutPanel1.Controls.Add(vegFracTxtBx);
             flowLayoutPanel1.Controls.Add(vegFracCheck);
             flowLayoutPanel1.SetFlowBreak(vegFracCheck, true);
+
+            
+
 
             flowLayoutPanel1.Controls.Add(roughLbl);
             flowLayoutPanel1.Controls.Add(roughTxtBx);
@@ -126,11 +166,18 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(xSlopeTxtBx);
             flowLayoutPanel1.Controls.Add(xSlopeCheck);
             flowLayoutPanel1.SetFlowBreak(xSlopeCheck, true);
+            
 
             Label blankLbl = new Label();
             blankLbl.Text = " ";
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
+
+            if (storHtCheck.Checked) { addMinMaxBox(lid.getSurface()[0]); }
+            if (vegFracCheck.Checked) { addMinMaxBox(lid.getSurface()[1]); }
+            if (roughCheck.Checked) { addMinMaxBox(lid.getSurface()[2]); }
+            if (slopeCheck.Checked) { addMinMaxBox(lid.getSurface()[3]); }
+            if (xSlopeCheck.Checked) { addMinMaxBox(lid.getSurface()[4]); }
 
         }
 
@@ -188,34 +235,76 @@ namespace SWMM2PEST
             kcoeffTxtBx.Text = Convert.ToString(lid.getSoil()[5].getValue());
             suctTxtBx.Text = Convert.ToString(lid.getSoil()[6].getValue());
 
-            CheckBox thickCheck = new CheckBox();
-            thickCheck.Name = "SoilThickCheck";
-            cBoxes.Add(thickCheck);
-            thickCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox porCheck = new CheckBox();
-            porCheck.Name = "PorCheck";
-            cBoxes.Add(porCheck);
-            porCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox fcCheck = new CheckBox();
-            fcCheck.Name = "FcCheck";
-            cBoxes.Add(fcCheck);
-            fcCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox wpCheck = new CheckBox();
-            wpCheck.Name = "WpCheck";
-            cBoxes.Add(wpCheck);
-            wpCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox ksatCheck = new CheckBox();
-            ksatCheck.Name = "KsatCheck";
-            cBoxes.Add(ksatCheck);
-            ksatCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox thickCheck;
+            if (lid.getSoil()[0].getCheckBox() == null)
+            {
+                thickCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[0]);
+                thickCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[0].setCheckBox(thickCheck);
+            }
+            else { thickCheck = lid.getSoil()[0].getCheckBox(); }
+
+            CheckBox porCheck;
+            if (lid.getSoil()[1].getCheckBox() == null)
+            {
+                porCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[1]);
+                porCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[1].setCheckBox(porCheck);
+            }
+            else { porCheck = lid.getSoil()[1].getCheckBox(); }
+
+            CheckBox fcCheck;
+            if (lid.getSoil()[2].getCheckBox() == null)
+            {
+                fcCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[2]);
+                fcCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[2].setCheckBox(fcCheck);
+            }
+            else { fcCheck = lid.getSoil()[2].getCheckBox(); }
+
+            CheckBox wpCheck;
+            if (lid.getSoil()[3].getCheckBox() == null)
+            {
+                wpCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[3]);
+                wpCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[3].setCheckBox(wpCheck);
+            }
+            else { wpCheck = lid.getSoil()[3].getCheckBox(); }
+
+            CheckBox ksatCheck;
+            if (lid.getSoil()[4].getCheckBox() == null)
+            {
+                ksatCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[4]);
+                ksatCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[4].setCheckBox(ksatCheck);
+            }
+            else { ksatCheck = lid.getSoil()[4].getCheckBox(); }
+
             CheckBox kcoeffCheck = new CheckBox();
-            kcoeffCheck.Name = "KcoeffCheck";
-            cBoxes.Add(kcoeffCheck);
-            kcoeffCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox suctCheck = new CheckBox();
-            suctCheck.Name = "SuctCheck";
-            cBoxes.Add(suctCheck);
-            suctCheck.CheckedChanged += new EventHandler(checkChecked);
+            if (lid.getSoil()[5].getCheckBox() == null)
+            {
+                kcoeffCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[5]);
+                kcoeffCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[5].setCheckBox(kcoeffCheck);
+            }
+            else { kcoeffCheck = lid.getSoil()[5].getCheckBox(); }
+
+
+            CheckBox suctCheck;
+            if (lid.getSoil()[6].getCheckBox() == null)
+            {
+                suctCheck = new CheckBox();
+                parameters.Add(lid.getSoil()[6]);
+                suctCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getSoil()[6].setCheckBox(suctCheck);
+            }
+            else { suctCheck = lid.getSoil()[6].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(soilLbl);
             flowLayoutPanel1.SetFlowBreak(soilLbl, true);
@@ -260,6 +349,14 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
 
+            if (thickCheck.Checked) { addMinMaxBox(lid.getSoil()[0]); }
+            if (porCheck.Checked) { addMinMaxBox(lid.getSoil()[1]); }
+            if(fcCheck.Checked) { addMinMaxBox(lid.getSoil()[2]); }
+            if(wpCheck.Checked) { addMinMaxBox(lid.getSoil()[3]); }
+            if (ksatCheck.Checked) { addMinMaxBox(lid.getSoil()[4]); }
+            if(kcoeffCheck.Checked) { addMinMaxBox(lid.getSoil()[5]); }
+            if(suctCheck.Checked) { addMinMaxBox(lid.getSoil()[6]); }
+
         }
         private void pavementParameterEdit(LID_Controls lid)
         {
@@ -302,26 +399,55 @@ namespace SWMM2PEST
             permTxtBx.Text = Convert.ToString(lid.getPavement()[3].getValue());
             vclogTxtBx.Text = Convert.ToString(lid.getPavement()[4].getValue());
 
-            CheckBox thickCheck = new CheckBox();
-            thickCheck.Name = "PavementThickCheck";
-            cBoxes.Add(thickCheck);
-            thickCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vRatioCheck = new CheckBox();
-            thickCheck.Name = "VRatioCheck";
-            cBoxes.Add(vRatioCheck);
-            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox fracImpCheck = new CheckBox();
-            fracImpCheck.Name = "FracImpCheck";
-            cBoxes.Add(fracImpCheck);
-            fracImpCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox permCheck = new CheckBox();
-            permCheck.Name = "PermCheck";
-            cBoxes.Add(permCheck);
-            permCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vclogCheck = new CheckBox();
-            vclogCheck.Name = "VclogCheck";
-            cBoxes.Add(vclogCheck);
-            vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox thickCheck;
+            if (lid.getPavement()[0].getCheckBox() == null)
+            {
+                thickCheck = new CheckBox();
+                parameters.Add(lid.getPavement()[0]);
+                thickCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getPavement()[0].setCheckBox(thickCheck);
+            }
+            else { thickCheck = lid.getPavement()[0].getCheckBox(); }
+
+            CheckBox vRatioCheck;
+            if (lid.getPavement()[1].getCheckBox() == null)
+            {
+                vRatioCheck = new CheckBox();    
+                parameters.Add(lid.getPavement()[1]);
+                vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getPavement()[1].setCheckBox(vRatioCheck);
+            }
+            else { vRatioCheck = lid.getPavement()[1].getCheckBox(); }
+
+            CheckBox fracImpCheck;
+            if (lid.getPavement()[2].getCheckBox() == null)
+            {
+                fracImpCheck = new CheckBox();
+                parameters.Add(lid.getPavement()[2]);
+                fracImpCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getPavement()[2].setCheckBox(fracImpCheck);
+            }
+            else { fracImpCheck = lid.getPavement()[2].getCheckBox(); }
+
+            CheckBox permCheck;
+            if (lid.getPavement()[3].getCheckBox() == null)
+            {
+                permCheck = new CheckBox();
+                parameters.Add(lid.getPavement()[3]);
+                permCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getPavement()[3].setCheckBox(permCheck);
+            }
+            else { permCheck = lid.getPavement()[3].getCheckBox(); }
+
+            CheckBox vclogCheck;
+            if (lid.getPavement()[4].getCheckBox() == null)
+            {
+                vclogCheck = new CheckBox();
+                parameters.Add(lid.getPavement()[4]);
+                vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getPavement()[4].setCheckBox(vclogCheck);
+            }
+            else { vclogCheck = lid.getPavement()[4].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(pavLbl);
             flowLayoutPanel1.SetFlowBreak(pavLbl, true);
@@ -355,6 +481,12 @@ namespace SWMM2PEST
             blankLbl.Text = " ";
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
+
+            if (thickCheck.Checked) { addMinMaxBox(lid.getPavement()[0]); }
+            if(vRatioCheck.Checked) { addMinMaxBox(lid.getPavement()[1]); }
+            if(fracImpCheck.Checked) { addMinMaxBox(lid.getPavement()[2]); }
+            if(permCheck.Checked) { addMinMaxBox(lid.getPavement()[3]); }
+            if(vclogCheck.Checked) { addMinMaxBox(lid.getPavement()[4]); }
         }
 
         private void storageParameterEdit(LID_Controls lid)
@@ -392,22 +524,46 @@ namespace SWMM2PEST
             seepageTxtBx.Text = Convert.ToString(lid.getStorage()[2].getValue());
             vclogTxtBx.Text = Convert.ToString(lid.getStorage()[3].getValue());
 
-            CheckBox heightCheck = new CheckBox();
-            heightCheck.Name = "heightCheck";
-            cBoxes.Add(heightCheck);
-            heightCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vRatioCheck = new CheckBox();
-            vRatioCheck.Name = "VRatioCheck";
-            cBoxes.Add(vRatioCheck);
-            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox seepageCheck = new CheckBox();
-            seepageCheck.Name = "SeepageCheck";
-            cBoxes.Add(seepageCheck);
-            seepageCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vclogCheck = new CheckBox();
-            vclogCheck.Name = "vclogCheck";
-            cBoxes.Add(vclogCheck);
-            vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+
+            CheckBox heightCheck;
+            if (lid.getStorage()[0].getCheckBox() == null)
+            {
+                heightCheck = new CheckBox();
+                parameters.Add(lid.getStorage()[0]);
+                heightCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getStorage()[0].setCheckBox(heightCheck);
+            }
+            else { heightCheck = lid.getStorage()[0].getCheckBox(); }
+
+            CheckBox vRatioCheck;
+            if (lid.getStorage()[1].getCheckBox() == null)
+            {
+                vRatioCheck = new CheckBox();
+                parameters.Add(lid.getStorage()[1]);
+                vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getStorage()[1].setCheckBox(vRatioCheck);
+            }
+            else { vRatioCheck = lid.getStorage()[1].getCheckBox(); }
+
+            CheckBox seepageCheck;
+            if (lid.getStorage()[2].getCheckBox() == null)
+            {
+                seepageCheck = new CheckBox();
+                parameters.Add(lid.getStorage()[2]);
+                seepageCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getStorage()[2].setCheckBox(seepageCheck);
+            }
+            else { seepageCheck = lid.getStorage()[2].getCheckBox(); }
+
+            CheckBox vclogCheck;
+            if (lid.getStorage()[3].getCheckBox() == null)
+            {
+                vclogCheck = new CheckBox();
+                parameters.Add(lid.getStorage()[3]);
+                vclogCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getStorage()[3].setCheckBox(vclogCheck);
+            }
+            else { vclogCheck = lid.getStorage()[3].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(storLbl);
             flowLayoutPanel1.SetFlowBreak(storLbl, true);
@@ -436,6 +592,11 @@ namespace SWMM2PEST
             blankLbl.Text = " ";
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
+
+            if(heightCheck.Checked) { addMinMaxBox(lid.getStorage()[0]); }
+            if(vRatioCheck.Checked) { addMinMaxBox(lid.getStorage()[1]); }
+            if(seepageCheck.Checked) { addMinMaxBox(lid.getStorage()[2]); }
+            if(seepageCheck.Checked) { addMinMaxBox(lid.getStorage()[3]); }
 
         }
 
@@ -473,18 +634,35 @@ namespace SWMM2PEST
             exponTxtBx.Text = Convert.ToString(lid.getDrain()[1].getValue());
             offsetTxtBx.Text = Convert.ToString(lid.getDrain()[2].getValue());
 
-            CheckBox coeffCheck = new CheckBox();
-            coeffCheck.Name = "CoeffCheck";
-            cBoxes.Add(coeffCheck);
-            coeffCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox exponCheck = new CheckBox();
-            exponCheck.Name = "ExponCheck";
-            cBoxes.Add(exponCheck);
-            exponCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox offsetCheck = new CheckBox();
-            offsetCheck.Name = "OffsetCheck";
-            cBoxes.Add(offsetCheck);
-            offsetCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox coeffCheck;
+            if (lid.getDrain()[0].getCheckBox() == null)
+            {
+                coeffCheck = new CheckBox();
+                parameters.Add(lid.getDrain()[0]);
+                coeffCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrain()[0].setCheckBox(coeffCheck);
+            }
+            else { coeffCheck = lid.getDrain()[0].getCheckBox(); }
+
+            CheckBox exponCheck;
+            if (lid.getDrain()[1].getCheckBox() == null)
+            {
+                exponCheck = new CheckBox();
+                parameters.Add(lid.getDrain()[1]);
+                exponCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrain()[1].setCheckBox(exponCheck);
+            }
+            else { exponCheck = lid.getDrain()[1].getCheckBox(); }
+
+            CheckBox offsetCheck;
+            if (lid.getDrain()[2].getCheckBox() == null)
+            {
+                offsetCheck = new CheckBox();
+                parameters.Add(lid.getDrain()[2]);
+                offsetCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrain()[2].setCheckBox(offsetCheck);
+            }
+            else { offsetCheck = lid.getDrain()[2].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(drainLbl);
             flowLayoutPanel1.SetFlowBreak(drainLbl, true);
@@ -504,6 +682,10 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(offsetCheck);
             flowLayoutPanel1.SetFlowBreak(offsetCheck, true);
 
+            if (coeffCheck.Checked) { addMinMaxBox(lid.getDrain()[0]); }
+            if (exponCheck.Checked) { addMinMaxBox(lid.getDrain()[1]); }
+            if (offsetCheck.Checked) { addMinMaxBox(lid.getDrain()[2]); }
+
             if (hasOpenClose)
             {
                 Label openLbl = new Label();
@@ -519,14 +701,26 @@ namespace SWMM2PEST
                 openTxt.Text = Convert.ToString(lid.getDrain()[3].getValue());
                 closedTxt.Text = Convert.ToString(lid.getDrain()[4].getValue());
 
-                CheckBox openCheck = new CheckBox();
-                openCheck.Name = "OpenCheck";
-                cBoxes.Add(openCheck);
-                openCheck.CheckedChanged += new EventHandler(checkChecked);
-                CheckBox closeCheck = new CheckBox();
-                closeCheck.Name = "CloseCheck";
-                cBoxes.Add(closeCheck);
-                closeCheck.CheckedChanged += new EventHandler(checkChecked);
+                CheckBox openCheck;
+                if (lid.getDrain()[3].getCheckBox() == null)
+                {
+                    openCheck = new CheckBox();
+                    parameters.Add(lid.getDrain()[3]);
+                    openCheck.CheckedChanged += new EventHandler(checkChecked);
+                    lid.getDrain()[3].setCheckBox(openCheck);
+                }
+                else { openCheck = lid.getDrain()[3].getCheckBox(); }
+
+                CheckBox closeCheck;
+                if (lid.getDrain()[4].getCheckBox() == null)
+                {
+                    closeCheck = new CheckBox();
+                    parameters.Add(lid.getDrain()[4]);
+                    closeCheck.CheckedChanged += new EventHandler(checkChecked);
+                    lid.getDrain()[4].setCheckBox(closeCheck);
+                }
+                else { closeCheck = lid.getDrain()[4].getCheckBox(); }
+
 
                 flowLayoutPanel1.Controls.Add(openLbl);
                 flowLayoutPanel1.Controls.Add(openTxt);
@@ -537,6 +731,9 @@ namespace SWMM2PEST
                 flowLayoutPanel1.Controls.Add(closedTxt);
                 flowLayoutPanel1.Controls.Add(closeCheck);
                 flowLayoutPanel1.SetFlowBreak(closeCheck, true);
+
+                if(openCheck.Checked) { addMinMaxBox(lid.getDrain()[3]); }
+                if(closeCheck.Checked) { addMinMaxBox(lid.getDrain()[4]); }
             }
             else
             {
@@ -547,15 +744,23 @@ namespace SWMM2PEST
                 delayTxtBx.Enabled = false;
                 delayTxtBx.Text = Convert.ToString(lid.getDrain()[3].getValue());
 
-                CheckBox delayCheck = new CheckBox();
-                delayCheck.Name = "DelayCheck";
-                cBoxes.Add(delayCheck);
-                delayCheck.CheckedChanged += new EventHandler(checkChecked);
+                CheckBox delayCheck;
+                if (lid.getDrain()[3].getCheckBox() == null)
+                {
+                    delayCheck = new CheckBox();
+                    parameters.Add(lid.getDrain()[3]);
+                    delayCheck.CheckedChanged += new EventHandler(checkChecked);
+                    lid.getDrain()[3].setCheckBox(delayCheck);
+                }
+                else { delayCheck = lid.getDrain()[3].getCheckBox(); }
+
 
                 flowLayoutPanel1.Controls.Add(delayLbl);
                 flowLayoutPanel1.Controls.Add(delayTxtBx);
                 flowLayoutPanel1.Controls.Add(delayCheck);
                 flowLayoutPanel1.SetFlowBreak(delayCheck, true);
+
+                if(delayCheck.Checked) { addMinMaxBox(lid.getDrain()[3]); }
 
             }
 
@@ -596,21 +801,34 @@ namespace SWMM2PEST
             vRatioTxtBx.Text = Convert.ToString(lid.getDrainmat()[1].getValue());
             roughTxtBx.Text = Convert.ToString(lid.getDrainmat()[2].getValue());
 
-            CheckBox thickCheck = new CheckBox();
-            thickCheck.Name = "DrainmatThickCheck";
-            cBoxes.Add(thickCheck);
-            thickCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox vRatioCheck = new CheckBox();
-            vRatioCheck.Name = "DrainmatVRatioCheck";
-            cBoxes.Add(vRatioCheck);
-            vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox roughCheck = new CheckBox();
-            roughCheck.Name = "DrainmatRoughCheck";
-            cBoxes.Add(roughCheck);
-            roughCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox thickCheck;
+            if (lid.getDrainmat()[0].getCheckBox() == null)
+            {
+                thickCheck = new CheckBox();
+                parameters.Add(lid.getDrainmat()[0]);
+                thickCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrainmat()[0].setCheckBox(thickCheck);
+            }else { thickCheck = lid.getDrainmat()[0].getCheckBox(); }
 
 
+            CheckBox vRatioCheck;
+            if (lid.getDrainmat()[1].getCheckBox() == null)
+            {
+                vRatioCheck = new CheckBox();
+                parameters.Add(lid.getDrainmat()[1]);
+                vRatioCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrainmat()[1].setCheckBox(vRatioCheck);
+            }else { vRatioCheck = lid.getDrainmat()[1].getCheckBox(); }
 
+
+            CheckBox roughCheck;
+            if (lid.getDrainmat()[2].getCheckBox() == null)
+            {
+                roughCheck = new CheckBox();
+                parameters.Add(lid.getDrainmat()[2]);
+                roughCheck.CheckedChanged += new EventHandler(checkChecked);
+                lid.getDrainmat()[2].setCheckBox(roughCheck);
+            }else { roughCheck = lid.getDrainmat()[2].getCheckBox(); }
 
             flowLayoutPanel1.Controls.Add(drainmLbl);
             flowLayoutPanel1.SetFlowBreak(drainmLbl, true);
@@ -634,6 +852,10 @@ namespace SWMM2PEST
             blankLbl.Text = " ";
             flowLayoutPanel1.Controls.Add(blankLbl);
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
+
+            if(thickCheck.Checked) { addMinMaxBox(lid.getDrainmat()[0]); }
+            if(vRatioCheck.Checked) { addMinMaxBox(lid.getDrainmat()[1]); }
+            if(roughCheck.Checked) { addMinMaxBox(lid.getDrainmat()[2]); }
 
         }
 
@@ -763,56 +985,119 @@ namespace SWMM2PEST
 
             
 
-            CheckBox areaCheck = new CheckBox();
-            areaCheck.Name = "AreaCheck";
-            cBoxes.Add(areaCheck);
-            areaCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox widthCheck = new CheckBox();
-            widthCheck.Name = "widthCheck";
-            cBoxes.Add(widthCheck);
-            widthCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox percentSlopeCheck = new CheckBox();
-            percentSlopeCheck.Name = "PercentSlopeCheck";
-            cBoxes.Add(percentSlopeCheck);
-            percentSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox percentImpervCheck = new CheckBox();
-            percentImpervCheck.Name = "PercentImpervCheck";
-            cBoxes.Add(percentImpervCheck);
-            percentImpervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox NImpervCheck = new CheckBox();
-            NImpervCheck.Name = "NImpervCheck";
-            cBoxes.Add(NImpervCheck);
-            NImpervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox NPervCheck = new CheckBox();
-            NPervCheck.Name = "NPervCheck";
-            cBoxes.Add(NPervCheck);
-            NPervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox SImpervCheck = new CheckBox();
-            SImpervCheck.Name = "SImpervCheck";
-            cBoxes.Add(SImpervCheck);
-            SImpervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox SPervCheck = new CheckBox();
-            SPervCheck.Name = "SPervCheck";
-            cBoxes.Add(SPervCheck);
-            SPervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox percentZeroImpervCheck = new CheckBox();
-            percentZeroImpervCheck.Name = "PercentZeroImpervCheck";
-            cBoxes.Add(percentZeroImpervCheck);
-            percentZeroImpervCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox suctionCheck = new CheckBox();
-            suctionCheck.Name = "SuctionCheck";
-            cBoxes.Add(suctionCheck);
-            suctionCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox ksatCheck = new CheckBox();
-            ksatCheck.Name = "KsatCheck";
-            cBoxes.Add(ksatCheck);
-            ksatCheck.CheckedChanged += new EventHandler(checkChecked);
-            CheckBox IMDCheck = new CheckBox();
-            IMDCheck.Name = "IMDCheck";
-            cBoxes.Add(IMDCheck);
-            IMDCheck.CheckedChanged += new EventHandler(checkChecked);
+            CheckBox areaCheck;
+            if (sub.getArea().getCheckBox() == null)
+            {
+                areaCheck = new CheckBox();
+                parameters.Add(sub.getArea());
+                areaCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getArea().setCheckBox(areaCheck);
+            }else { areaCheck = sub.getArea().getCheckBox(); }
 
+            CheckBox widthCheck;
+            if (sub.getWidth().getCheckBox() == null)
+            {
+                widthCheck = new CheckBox();
+                parameters.Add(sub.getWidth());
+                widthCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getWidth().setCheckBox(widthCheck);
+            }else { widthCheck = sub.getWidth().getCheckBox(); }
 
+            CheckBox percentSlopeCheck;
+            if (sub.getPercentSlope().getCheckBox() == null)
+            {
+                percentSlopeCheck = new CheckBox();
+                parameters.Add(sub.getPercentSlope());
+                percentSlopeCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getPercentSlope().setCheckBox(percentSlopeCheck);
+            }else { percentSlopeCheck = sub.getPercentSlope().getCheckBox(); }
+
+            CheckBox percentImpervCheck;
+            if (sub.getPercentImperv().getCheckBox() == null)
+            {
+                percentImpervCheck = new CheckBox();
+                parameters.Add(sub.getPercentImperv());
+                percentImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getPercentImperv().setCheckBox(percentImpervCheck);
+            }else { percentImpervCheck = sub.getPercentImperv().getCheckBox(); }
+
+            CheckBox NImpervCheck;
+            if (sub.getNImperv().getCheckBox() == null)
+            {
+                NImpervCheck = new CheckBox();
+                parameters.Add(sub.getNImperv());
+                NImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getNImperv().setCheckBox(NImpervCheck);
+            } else { NImpervCheck = sub.getNImperv().getCheckBox(); }
+
+            CheckBox NPervCheck;
+            if (sub.getNPerv().getCheckBox() == null)
+            {
+                NPervCheck = new CheckBox();
+                parameters.Add(sub.getNPerv());
+                NPervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getNPerv().setCheckBox(NPervCheck);
+            }else { NPervCheck = sub.getNPerv().getCheckBox(); }
+
+            CheckBox SImpervCheck;
+            if (sub.getSImperv().getCheckBox() == null)
+            {
+                SImpervCheck = new CheckBox();
+                parameters.Add(sub.getSImperv());
+                SImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getSImperv().setCheckBox(SImpervCheck);
+            }else { SImpervCheck = sub.getSImperv().getCheckBox(); }
+
+            CheckBox SPervCheck;
+            if (sub.getSPerv().getCheckBox() == null)
+            {
+                SPervCheck = new CheckBox();
+                parameters.Add(sub.getSPerv());
+                SPervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getSPerv().setCheckBox(SPervCheck);
+            }else { SPervCheck = sub.getSPerv().getCheckBox(); }
+
+            CheckBox percentZeroImpervCheck;
+            if (sub.getPercentZeroImperv().getCheckBox() == null)
+            {
+                percentZeroImpervCheck = new CheckBox();
+                parameters.Add(sub.getPercentZeroImperv());
+                percentZeroImpervCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getPercentZeroImperv().setCheckBox(percentZeroImpervCheck);
+            }
+            else {
+                percentZeroImpervCheck = sub.getPercentZeroImperv().getCheckBox(); }
+
+            CheckBox suctionCheck;
+            if (sub.getSuction().getCheckBox() == null)
+            {
+                suctionCheck = new CheckBox();
+                parameters.Add(sub.getSuction());
+                suctionCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getSuction().setCheckBox(suctionCheck);
+            }else {
+                suctionCheck = sub.getSuction().getCheckBox(); }
+
+            CheckBox ksatCheck;
+            if (sub.getKsat().getCheckBox() == null)
+            {
+                ksatCheck = new CheckBox();
+                parameters.Add(sub.getKsat());
+                ksatCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getKsat().setCheckBox(ksatCheck);
+            }else { ksatCheck = sub.getKsat().getCheckBox(); }
+
+            
+            CheckBox IMDCheck;
+            if (sub.getIMD().getCheckBox() == null)
+            {
+                IMDCheck = new CheckBox();
+                parameters.Add(sub.getIMD());
+                IMDCheck.CheckedChanged += new EventHandler(checkChecked);
+                sub.getIMD().setCheckBox(IMDCheck);
+            }else { IMDCheck = sub.getIMD().getCheckBox(); }
+
+            
 
             flowLayoutPanel1.Controls.Add(areaLabel);
             flowLayoutPanel1.Controls.Add(areaTextBox);
@@ -834,6 +1119,7 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(percentImpervCheck);
             flowLayoutPanel1.SetFlowBreak(percentImpervCheck, true);
 
+            
             flowLayoutPanel1.Controls.Add(NImpervLabel);
             flowLayoutPanel1.Controls.Add(NImpervTextBox);
             flowLayoutPanel1.Controls.Add(NImpervCheck);
@@ -843,22 +1129,22 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(NPervTextBox);
             flowLayoutPanel1.Controls.Add(NPervCheck);
             flowLayoutPanel1.SetFlowBreak(NPervCheck, true);
-
+            
             flowLayoutPanel1.Controls.Add(SImpervLabel);
             flowLayoutPanel1.Controls.Add(SImpervTextBox);
             flowLayoutPanel1.Controls.Add(SImpervCheck);
             flowLayoutPanel1.SetFlowBreak(SImpervCheck, true);
-
+            
             flowLayoutPanel1.Controls.Add(SPervLabel);
             flowLayoutPanel1.Controls.Add(SPervTextBox);
             flowLayoutPanel1.Controls.Add(SPervCheck);
             flowLayoutPanel1.SetFlowBreak(SPervCheck, true);
-
+            
             flowLayoutPanel1.Controls.Add(percentZeroImpervLabel);
             flowLayoutPanel1.Controls.Add(percentZeroImpervTextBox);
             flowLayoutPanel1.Controls.Add(percentZeroImpervCheck);
             flowLayoutPanel1.SetFlowBreak(percentZeroImpervCheck, true);
-
+            
             flowLayoutPanel1.Controls.Add(suctionLabel);
             flowLayoutPanel1.Controls.Add(suctionTextBox);
             flowLayoutPanel1.Controls.Add(suctionCheck);
@@ -873,6 +1159,24 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(IMDTextBox);
             flowLayoutPanel1.Controls.Add(IMDCheck);
             flowLayoutPanel1.SetFlowBreak(IMDCheck, true);
+            
+
+            
+            if (areaCheck.Checked) { addMinMaxBox(sub.getArea()); }
+            if (widthCheck.Checked) { addMinMaxBox(sub.getWidth()); }
+            if (percentSlopeCheck.Checked) { addMinMaxBox(sub.getPercentSlope()); }
+            if (percentImpervCheck.Checked) { addMinMaxBox(sub.getPercentImperv()); }
+            if (NImpervCheck.Checked) { addMinMaxBox(sub.getNImperv()); }
+            if (NPervCheck.Checked) { addMinMaxBox(sub.getNPerv()); }
+            if (SImpervCheck.Checked) { addMinMaxBox(sub.getSImperv()); }
+            if (SPervCheck.Checked) { addMinMaxBox(sub.getSPerv()); }
+            if (suctionCheck.Checked) { addMinMaxBox(sub.getSuction()); }
+            if (ksatCheck.Checked) { addMinMaxBox(sub.getKsat()); }
+            if (IMDCheck.Checked) { addMinMaxBox(sub.getIMD()); }
+            
+
+
+
 
 
         }
@@ -961,42 +1265,52 @@ namespace SWMM2PEST
         {
             //gets the current checked checkboxes
             currentChecked.Clear();
-            for (int x = 0; x < cBoxes.Count; x++)
+            for (int x = 0; x < parameters.Count; x++)
             {
-                if (cBoxes[x].Checked == true)
+                if (parameters[x].getCheckBox() != null && parameters[x].getCheckBox().Checked)
                 {
-                    currentChecked.Add(cBoxes[x]);
+                    currentChecked.Add(parameters[x]);
+                }
+                if (parameters[x].getCheckBox() == null)
+                {
+                    Console.WriteLine(x + ":" + parameters[x].getValue());
                 }
             }
 
             if(currentChecked.Count > lastChecked.Count)
             {
-                List<CheckBox> justchecked = currentChecked.Except(lastChecked).ToList();
-                Console.WriteLine("checked " + justchecked[0].Name);
-
-                TextBox min = new TextBox();
-                TextBox max = new TextBox();
-                min.Text = "Min";
-                max.Text = "Max";
-
-                flowLayoutPanel1.Controls.Add(min);
-                flowLayoutPanel1.Controls.Add(max);
+                List<Parameter> justchecked = currentChecked.Except(lastChecked).ToList();
                 
-                flowLayoutPanel1.Controls.SetChildIndex(min, flowLayoutPanel1.Controls.GetChildIndex(justchecked[0]) + 1);
-                flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min) + 1);              
-                flowLayoutPanel1.SetFlowBreak(max, true);
+                addMinMaxBox(justchecked[0]);
             }
             else
             {
-                List<CheckBox> justUnChecked = lastChecked.Except(currentChecked).ToList();
-                Console.WriteLine("Unchecked " + justUnChecked[0].Name);
-                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0]) + 1);
-                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0]) + 1);
+                List<Parameter> justUnChecked = lastChecked.Except(currentChecked).ToList();
+                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0].getCheckBox()) + 1);
+                flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0].getCheckBox()) + 1);
             }
             
-            lastChecked = new List<CheckBox>(currentChecked);
+            lastChecked = new List<Parameter>(currentChecked);
             
             
+        }
+
+        private void addMinMaxBox(Parameter childPara)
+        {
+            Console.WriteLine(childPara.getValue());
+            TextBox min = new TextBox();
+            TextBox max = new TextBox();
+            
+            min.Text = "Min";
+            max.Text = "Max";
+
+            flowLayoutPanel1.Controls.Add(min);
+            flowLayoutPanel1.Controls.Add(max);
+
+           
+            flowLayoutPanel1.Controls.SetChildIndex(min, flowLayoutPanel1.Controls.GetChildIndex(childPara.getCheckBox())+ 1);
+            flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min)+ 1);
+            flowLayoutPanel1.SetFlowBreak(max, true);
         }
     }
 }

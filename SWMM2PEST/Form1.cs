@@ -31,9 +31,6 @@ namespace SWMM2PEST
             parameters = new List<Parameter>();
             currentChecked = new List<Parameter>();
             lastChecked = new List<Parameter>();
-
-
-
         }
 
         private void surfaceParameterEdit(LID_Controls lid)
@@ -1241,6 +1238,7 @@ namespace SWMM2PEST
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            saveParameters();
             //Console.WriteLine(e.Node.Text); //what node has been clicked on.
             if (e.Node.Parent != null)
             {
@@ -1258,6 +1256,25 @@ namespace SWMM2PEST
                     createParameterEditLID(currentLID);
                 }
             }
+
+        }
+        private void saveParameters()
+        {
+            int currentCheckIndex;
+            
+                for (int x = 0; x < currentChecked.Count; x++)
+                {
+                    try
+                    {
+                        currentCheckIndex = flowLayoutPanel1.Controls.GetChildIndex(currentChecked[x].getCheckBox());
+                        currentChecked[x].setMin(Convert.ToDouble( flowLayoutPanel1.Controls[currentCheckIndex + 1].Text));
+                        currentChecked[x].setMax(Convert.ToDouble(flowLayoutPanel1.Controls[currentCheckIndex + 2].Text));
+                    }
+                    catch (Exception e)
+                    {
+                    Console.WriteLine("test1");
+                    }
+                }
 
         }
 
@@ -1300,9 +1317,17 @@ namespace SWMM2PEST
             Console.WriteLine(childPara.getValue());
             TextBox min = new TextBox();
             TextBox max = new TextBox();
-            
-            min.Text = "Min";
-            max.Text = "Max";
+
+            if (childPara.getMin() == 0 && childPara.getMax() == 0 )
+            {
+                min.Text = "Min";
+                max.Text = "Max";
+            }
+            else
+            {
+                min.Text = Convert.ToString(childPara.getMin());
+                max.Text = Convert.ToString(childPara.getMax());
+            }
 
             flowLayoutPanel1.Controls.Add(min);
             flowLayoutPanel1.Controls.Add(max);

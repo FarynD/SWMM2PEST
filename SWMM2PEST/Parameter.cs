@@ -9,14 +9,16 @@ namespace SWMM2PEST
 {
     class Parameter
     {
+        string name;
         double value;
         double min;
         double max;
         CheckBox paraCheck;
         
-        public Parameter(double aValue)
+        public Parameter(double aValue, string aName)
         {
             value = aValue;
+            name = aName;
         }
 
         public void setCheckBox(CheckBox aCheckbox){ paraCheck = aCheckbox; }

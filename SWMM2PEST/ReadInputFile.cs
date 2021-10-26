@@ -15,6 +15,7 @@ namespace SWMM2PEST
         List<Subcatchments> subcatchments;
         List<LID_Controls> LIDs;
         List<Curves> curves;
+
         public ReadInputFile(string aFileLocation)
         {
             fileLocation = aFileLocation;
@@ -54,10 +55,10 @@ namespace SWMM2PEST
                         splitLine = splitString(line, ' ');
                         subcatchments.Add(new Subcatchments());
                         subcatchments[num].setName(splitLine[0]);
-                        subcatchments[num].setArea(new Parameter( Convert.ToDouble(splitLine[3])));
-                        subcatchments[num].setPercentImperv(new Parameter(Convert.ToDouble(splitLine[4])));
-                        subcatchments[num].setWidth(new Parameter(Convert.ToDouble(splitLine[5])));
-                        subcatchments[num].setPercentSlope(new Parameter(Convert.ToDouble(splitLine[6])));
+                        subcatchments[num].setArea(new Parameter( Convert.ToDouble(splitLine[3]), "Area"));
+                        subcatchments[num].setPercentImperv(new Parameter(Convert.ToDouble(splitLine[4]), "Percent Impervious"));
+                        subcatchments[num].setWidth(new Parameter(Convert.ToDouble(splitLine[5]), "Width"));
+                        subcatchments[num].setPercentSlope(new Parameter(Convert.ToDouble(splitLine[6]), "Percent Slope"));
                         line = sr.ReadLine();
                         num++;
                     }
@@ -77,7 +78,7 @@ namespace SWMM2PEST
 
                         
 
-                        subcatchments[num].setNImperv(new Parameter(Convert.ToDouble(splitLine[1])));
+                        subcatchments[num].setNImperv(new Parameter(Convert.ToDouble(splitLine[1]), "N Impervious"));
                         subcatchments[num].setNPerv(new Parameter(Convert.ToDouble(splitLine[2])));
                         subcatchments[num].setSImperv(new Parameter(Convert.ToDouble(splitLine[3])));
                         subcatchments[num].setSPerv(new Parameter(Convert.ToDouble(splitLine[4])));

@@ -33,6 +33,9 @@ namespace SWMM2PEST
             lastChecked = new List<Parameter>();
         }
 
+        //-------------------------------------------
+        //Parameter edits
+        //-------------------------------------------
         private void surfaceParameterEdit(LID_Controls lid)
         {
             Label surfaceLbl = new Label();
@@ -177,7 +180,6 @@ namespace SWMM2PEST
             if (xSlopeCheck.Checked) { addMinMaxBox(lid.getSurface()[4]); }
 
         }
-
         private void soilParameterEdit(LID_Controls lid)
         {
             Label soilLbl = new Label();
@@ -485,7 +487,6 @@ namespace SWMM2PEST
             if(permCheck.Checked) { addMinMaxBox(lid.getPavement()[3]); }
             if(vclogCheck.Checked) { addMinMaxBox(lid.getPavement()[4]); }
         }
-
         private void storageParameterEdit(LID_Controls lid)
         {
             Label storLbl = new Label();
@@ -596,7 +597,6 @@ namespace SWMM2PEST
             if(seepageCheck.Checked) { addMinMaxBox(lid.getStorage()[3]); }
 
         }
-
         private void drainParameterEdit(LID_Controls lid)
         {
             bool hasDelay = false; //only rainbarrel use drain delay
@@ -768,7 +768,6 @@ namespace SWMM2PEST
             flowLayoutPanel1.SetFlowBreak(blankLbl, true);
 
         }
-
         private void drainmatParameterEdit(LID_Controls lid)
         {
             Label drainmLbl = new Label();
@@ -855,7 +854,6 @@ namespace SWMM2PEST
             if(roughCheck.Checked) { addMinMaxBox(lid.getDrainmat()[2]); }
 
         }
-
         private void createParameterEditLID(LID_Controls lid)
         {
 
@@ -1177,6 +1175,56 @@ namespace SWMM2PEST
 
 
         }
+       
+        //-------------------------------------------
+        //Events
+        //-------------------------------------------
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "inp files (*.inp)|*.inp";
+            openFileDialog1.Title = "Open Input file";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                flowLayoutPanel1.Controls.Clear();
+                fileName = openFileDialog1.FileName;
+                ReadInputFile rif = new ReadInputFile(fileName);
+                subs = rif.GetSubcatchments();
+                lids = rif.getLIDs();
+                curves = rif.getCurves();
+            }
+            createComponentsTree();
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            saveParameters();
+            //Console.WriteLine(e.Node.Text); //what node has been clicked on.
+            if (e.Node.Parent != null)
+            {
+                //Console.WriteLine(e.Node.Parent.Text); //Parent Node.
+                if (e.Node.Parent.Text == "Subcatchments")
+                {
+                    Subcatchments currentsub = subs.Find(subs => subs.getName() == e.Node.Text);
+
+                    createParameterEditSub(currentsub);
+                }
+                else if (e.Node.Parent.Text == "LID Controls")
+                {
+                    LID_Controls currentLID = lids.Find(lids => lids.getName() == e.Node.Text);
+
+                    createParameterEditLID(currentLID);
+                }
+            }
+
+        }
+
+
+        //-------------------------------------------
+        //Other
+        //-------------------------------------------
+
         private void createComponentsTree()
         {
             treeView1.Nodes.Clear();
@@ -1209,76 +1257,27 @@ namespace SWMM2PEST
                 treeView1.Nodes.Add(curveNode);
             }
         }
-
-        private void clearAll()
-        {
-            flowLayoutPanel1.Controls.Clear();
-        }
-
-        //-------------------------------------------
-        //Events
-        //-------------------------------------------
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "inp files (*.inp)|*.inp";
-            openFileDialog1.Title = "Open Input file";
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                clearAll();
-                fileName = openFileDialog1.FileName;
-                ReadInputFile rif = new ReadInputFile(fileName);
-                subs = rif.GetSubcatchments();
-                lids = rif.getLIDs();
-                curves = rif.getCurves();
-            }
-            createComponentsTree();
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            saveParameters();
-            //Console.WriteLine(e.Node.Text); //what node has been clicked on.
-            if (e.Node.Parent != null)
-            {
-                //Console.WriteLine(e.Node.Parent.Text); //Parent Node.
-                if (e.Node.Parent.Text == "Subcatchments")
-                {
-                    Subcatchments currentsub = subs.Find(subs => subs.getName() == e.Node.Text);
-
-                    createParameterEditSub(currentsub);
-                }
-                else if (e.Node.Parent.Text == "LID Controls")
-                {
-                    LID_Controls currentLID = lids.Find(lids => lids.getName() == e.Node.Text);
-
-                    createParameterEditLID(currentLID);
-                }
-            }
-
-        }
         private void saveParameters()
         {
             int currentCheckIndex;
-            
-                for (int x = 0; x < currentChecked.Count; x++)
+
+            for (int x = 0; x < currentChecked.Count; x++)
+            {
+                try
                 {
-                    try
-                    {
-                        currentCheckIndex = flowLayoutPanel1.Controls.GetChildIndex(currentChecked[x].getCheckBox());
-                        currentChecked[x].setMin(Convert.ToDouble( flowLayoutPanel1.Controls[currentCheckIndex + 1].Text));
-                        currentChecked[x].setMax(Convert.ToDouble(flowLayoutPanel1.Controls[currentCheckIndex + 2].Text));
-                    }
-                    catch (Exception e)
-                    {
-                    Console.WriteLine("test1");
-                    }
+                    currentCheckIndex = flowLayoutPanel1.Controls.GetChildIndex(currentChecked[x].getCheckBox());
+                    currentChecked[x].setMin(Convert.ToDouble(flowLayoutPanel1.Controls[currentCheckIndex + 1].Text));
+                    currentChecked[x].setMax(Convert.ToDouble(flowLayoutPanel1.Controls[currentCheckIndex + 2].Text));
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine("test1");
+                }
+            }
 
         }
 
-        private void checkChecked (object sender, EventArgs e)
+        private void checkChecked(object sender, EventArgs e)
         {
             //gets the current checked checkboxes
             currentChecked.Clear();
@@ -1294,10 +1293,10 @@ namespace SWMM2PEST
                 }
             }
 
-            if(currentChecked.Count > lastChecked.Count)
+            if (currentChecked.Count > lastChecked.Count)
             {
                 List<Parameter> justchecked = currentChecked.Except(lastChecked).ToList();
-                
+
                 addMinMaxBox(justchecked[0]);
             }
             else
@@ -1306,10 +1305,10 @@ namespace SWMM2PEST
                 flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0].getCheckBox()) + 1);
                 flowLayoutPanel1.Controls.RemoveAt(flowLayoutPanel1.Controls.GetChildIndex(justUnChecked[0].getCheckBox()) + 1);
             }
-            
+
             lastChecked = new List<Parameter>(currentChecked);
-            
-            
+
+
         }
 
         private void addMinMaxBox(Parameter childPara)
@@ -1318,7 +1317,7 @@ namespace SWMM2PEST
             TextBox min = new TextBox();
             TextBox max = new TextBox();
 
-            if (childPara.getMin() == 0 && childPara.getMax() == 0 )
+            if (childPara.getMin() == 0 && childPara.getMax() == 0)
             {
                 min.Text = "Min";
                 max.Text = "Max";
@@ -1332,10 +1331,39 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.Add(min);
             flowLayoutPanel1.Controls.Add(max);
 
-           
-            flowLayoutPanel1.Controls.SetChildIndex(min, flowLayoutPanel1.Controls.GetChildIndex(childPara.getCheckBox())+ 1);
-            flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min)+ 1);
+
+            flowLayoutPanel1.Controls.SetChildIndex(min, flowLayoutPanel1.Controls.GetChildIndex(childPara.getCheckBox()) + 1);
+            flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min) + 1);
             flowLayoutPanel1.SetFlowBreak(max, true);
         }
+
+        private void writeToFile()
+        {
+            
+            string writeFile = "Inputs";
+
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.FileName = writeFile;
+            sf.Filter = "Directory | directory";
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                // Now here's our save folder
+                string savePath = Path.GetDirectoryName(sf.FileName);
+                // Do whatever
+                if (File.Exists(sf.FileName)) { File.Delete(sf.FileName); }
+
+                using (StreamWriter sw = File.CreateText(sf.FileName))
+                {
+                    sw.WriteLine("New file created: {0}", DateTime.Now.ToString());
+                    for (int x = 0; x < currentChecked.Count; x++)
+                    {
+                        sw.WriteLine("");
+                    }
+                }
+            }
+
+        }
+
     }
 }

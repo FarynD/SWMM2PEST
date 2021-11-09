@@ -1,0 +1,159 @@
+pcf
+* control data
+restart  estimation
+    1   132     1     0     1
+    1     1 single point   1   0   0
+  5.0   2.0   0.3  0.03    10
+  3.0   3.0 0.001  0
+  0.1
+   30  0.01     3     3  0.01     3
+    1     1     1
+* singular value decomposition
+ 1
+ 9999   5E-7
+ 0
+* parameter groups
+initsat      relative 0.01  0.0  switch  2.0 parabolic
+* parameter data
+initsat      none relative    1.00000      -1.000000E+10   1.000000E+10 initsat         1.0000        0.0000      1
+* observation groups
+obsgroup
+* observation data
+drnflow1               4.000000E-03  1.0  obsgroup
+drnflow2               4.000000E-03  1.0  obsgroup
+drnflow3               4.000000E-03  1.0  obsgroup
+drnflow4               4.000000E-03  1.0  obsgroup
+drnflow5               3.000000E-03  1.0  obsgroup
+drnflow6               8.000000E-03  1.0  obsgroup
+drnflow7               4.200000E-02  1.0  obsgroup
+drnflow8               0.160000      1.0  obsgroup
+drnflow9               0.308000      1.0  obsgroup
+drnflow10              0.458000      1.0  obsgroup
+drnflow11              0.591000      1.0  obsgroup
+drnflow12              0.633000      1.0  obsgroup
+drnflow13              0.640000      1.0  obsgroup
+drnflow14              0.640000      1.0  obsgroup
+drnflow15              0.640000      1.0  obsgroup
+drnflow16              0.640000      1.0  obsgroup
+drnflow17              0.640000      1.0  obsgroup
+drnflow18              0.612000      1.0  obsgroup
+drnflow19              0.583000      1.0  obsgroup
+drnflow20              0.500000      1.0  obsgroup
+drnflow21              0.441000      1.0  obsgroup
+drnflow22              0.398000      1.0  obsgroup
+drnflow23              0.366000      1.0  obsgroup
+drnflow24              0.291000      1.0  obsgroup
+drnflow25              0.237000      1.0  obsgroup
+drnflow26              0.196000      1.0  obsgroup
+drnflow27              0.165000      1.0  obsgroup
+drnflow28              0.140000      1.0  obsgroup
+drnflow29              0.120000      1.0  obsgroup
+drnflow30              0.104000      1.0  obsgroup
+drnflow31              9.100000E-02  1.0  obsgroup
+drnflow32              8.000000E-02  1.0  obsgroup
+drnflow33              7.100000E-02  1.0  obsgroup
+drnflow34              6.300000E-02  1.0  obsgroup
+drnflow35              5.700000E-02  1.0  obsgroup
+drnflow36              5.100000E-02  1.0  obsgroup
+drnflow37              4.600000E-02  1.0  obsgroup
+drnflow38              4.200000E-02  1.0  obsgroup
+drnflow39              3.800000E-02  1.0  obsgroup
+drnflow40              3.500000E-02  1.0  obsgroup
+drnflow41              3.200000E-02  1.0  obsgroup
+drnflow42              3.000000E-02  1.0  obsgroup
+drnflow43              2.700000E-02  1.0  obsgroup
+drnflow44              2.500000E-02  1.0  obsgroup
+drnflow45              2.400000E-02  1.0  obsgroup
+drnflow46              2.200000E-02  1.0  obsgroup
+drnflow47              2.000000E-02  1.0  obsgroup
+drnflow48              1.900000E-02  1.0  obsgroup
+drnflow49              1.800000E-02  1.0  obsgroup
+drnflow50              1.700000E-02  1.0  obsgroup
+drnflow51              1.600000E-02  1.0  obsgroup
+drnflow52              1.500000E-02  1.0  obsgroup
+drnflow53              1.400000E-02  1.0  obsgroup
+drnflow54              1.300000E-02  1.0  obsgroup
+drnflow55              1.200000E-02  1.0  obsgroup
+drnflow56              1.200000E-02  1.0  obsgroup
+drnflow57              1.100000E-02  1.0  obsgroup
+drnflow58              1.000000E-02  1.0  obsgroup
+drnflow59              1.000000E-02  1.0  obsgroup
+drnflow60              9.000000E-03  1.0  obsgroup
+drnflow61              9.000000E-03  1.0  obsgroup
+drnflow62              9.000000E-03  1.0  obsgroup
+drnflow63              8.000000E-03  1.0  obsgroup
+drnflow64              8.000000E-03  1.0  obsgroup
+drnflow65              7.000000E-03  1.0  obsgroup
+drnflow66              7.000000E-03  1.0  obsgroup
+drnflow67              7.000000E-03  1.0  obsgroup
+drnflow68              7.000000E-03  1.0  obsgroup
+drnflow69              6.000000E-03  1.0  obsgroup
+drnflow70              6.000000E-03  1.0  obsgroup
+drnflow71              6.000000E-03  1.0  obsgroup
+drnflow72              5.000000E-03  1.0  obsgroup
+drnflow73              5.000000E-03  1.0  obsgroup
+drnflow74              5.000000E-03  1.0  obsgroup
+drnflow75              5.000000E-03  1.0  obsgroup
+drnflow76              5.000000E-03  1.0  obsgroup
+drnflow77              5.000000E-03  1.0  obsgroup
+drnflow78              4.000000E-03  1.0  obsgroup
+drnflow79              4.000000E-03  1.0  obsgroup
+drnflow80              4.000000E-03  1.0  obsgroup
+drnflow81              4.000000E-03  1.0  obsgroup
+drnflow82              4.000000E-03  1.0  obsgroup
+drnflow83              4.000000E-03  1.0  obsgroup
+drnflow84              4.000000E-03  1.0  obsgroup
+drnflow85              3.000000E-03  1.0  obsgroup
+drnflow86              3.000000E-03  1.0  obsgroup
+drnflow87              3.000000E-03  1.0  obsgroup
+drnflow88              3.000000E-03  1.0  obsgroup
+drnflow89              3.000000E-03  1.0  obsgroup
+drnflow90              3.000000E-03  1.0  obsgroup
+drnflow91              3.000000E-03  1.0  obsgroup
+drnflow92              3.000000E-03  1.0  obsgroup
+drnflow93              3.000000E-03  1.0  obsgroup
+drnflow94              3.000000E-03  1.0  obsgroup
+drnflow95              2.000000E-03  1.0  obsgroup
+drnflow96              2.000000E-03  1.0  obsgroup
+drnflow97              2.000000E-03  1.0  obsgroup
+drnflow98              2.000000E-03  1.0  obsgroup
+drnflow99              2.000000E-03  1.0  obsgroup
+drnflow100             2.000000E-03  1.0  obsgroup
+drnflow101             2.000000E-03  1.0  obsgroup
+drnflow102             2.000000E-03  1.0  obsgroup
+drnflow103             2.000000E-03  1.0  obsgroup
+drnflow104             2.000000E-03  1.0  obsgroup
+drnflow105             2.000000E-03  1.0  obsgroup
+drnflow106             2.000000E-03  1.0  obsgroup
+drnflow107             2.000000E-03  1.0  obsgroup
+drnflow108             2.000000E-03  1.0  obsgroup
+drnflow109             2.000000E-03  1.0  obsgroup
+drnflow110             2.000000E-03  1.0  obsgroup
+drnflow111             2.000000E-03  1.0  obsgroup
+drnflow112             2.000000E-03  1.0  obsgroup
+drnflow113             2.000000E-03  1.0  obsgroup
+drnflow114             2.000000E-03  1.0  obsgroup
+drnflow115             1.000000E-03  1.0  obsgroup
+drnflow116             1.000000E-03  1.0  obsgroup
+drnflow117             1.000000E-03  1.0  obsgroup
+drnflow118             1.000000E-03  1.0  obsgroup
+drnflow119             1.000000E-03  1.0  obsgroup
+drnflow120             1.000000E-03  1.0  obsgroup
+drnflow121             1.000000E-03  1.0  obsgroup
+drnflow122             1.000000E-03  1.0  obsgroup
+drnflow123             1.000000E-03  1.0  obsgroup
+drnflow124             1.000000E-03  1.0  obsgroup
+drnflow125             1.000000E-03  1.0  obsgroup
+drnflow126             1.000000E-03  1.0  obsgroup
+drnflow127             1.000000E-03  1.0  obsgroup
+drnflow128             1.000000E-03  1.0  obsgroup
+drnflow129             1.000000E-03  1.0  obsgroup
+drnflow130             1.000000E-03  1.0  obsgroup
+drnflow131             1.000000E-03  1.0  obsgroup
+drnflow132             1.000000E-03  1.0  obsgroup
+* model command line
+SWMM5 greenroof.inp greenroof.rpt greenroof.out
+* model input/output
+greenroof.tpl  greenroof.inp
+greenroof.ins  greenroof.txt
+* prior information

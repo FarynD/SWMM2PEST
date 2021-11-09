@@ -1337,5 +1337,11 @@ namespace SWMM2PEST
             flowLayoutPanel1.Controls.SetChildIndex(max, flowLayoutPanel1.Controls.GetChildIndex(min)+ 1);
             flowLayoutPanel1.SetFlowBreak(max, true);
         }
+
+        private void runPestCalibrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form runFrm = new RunForm();
+            runFrm.Show();
+        }
     }
 }

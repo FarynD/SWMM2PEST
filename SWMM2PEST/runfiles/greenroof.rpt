@@ -1,0 +1,12 @@
+
+  EPA STORM WATER MANAGEMENT MODEL - VERSION 5.1 (Build 5.1.015)
+  --------------------------------------------------------------
+
+  
+  ERROR 305: cannot open report file.at line 83 of [LID_USAGE] section:
+  Sub1             GreenRoof        1       7480.00    100.800000 1.130000000      100        0          "C:\Users\MSIMON\Documents\Current\SWMM2PEST\Example\greenroof.txt" *                0
+
+
+  Analysis begun on:  Wed Jan 12 08:44:23 2022
+  Analysis ended on:  Wed Jan 12 08:44:23 2022
+  Total elapsed time: < 1 sec

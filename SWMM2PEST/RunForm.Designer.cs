@@ -60,6 +60,7 @@ namespace SWMM2PEST
             this.runBtn.TabIndex = 2;
             this.runBtn.Text = "Run";
             this.runBtn.UseVisualStyleBackColor = true;
+            this.runBtn.Click += new System.EventHandler(this.runBtn_Click);
             // 
             // RunForm
             // 

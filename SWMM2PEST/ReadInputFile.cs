@@ -23,7 +23,10 @@ namespace SWMM2PEST
             curves = new List<Curves>();
             readFile();
         }
-
+        /// <summary>
+        /// returns list of subcatchments
+        /// </summary>
+        /// <returns>subcatchments</returns>
         public List<Subcatchments> GetSubcatchments() { return subcatchments; }
 
         public List<LID_Controls> getLIDs() { return LIDs; }
@@ -348,3 +351,6 @@ namespace SWMM2PEST
         
     }
 }
+
+
+

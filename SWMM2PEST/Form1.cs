@@ -1229,6 +1229,7 @@ namespace SWMM2PEST
                 clearAll();
                 fileName = openFileDialog1.FileName;
                 ReadInputFile rif = new ReadInputFile(fileName);
+                Console.WriteLine("FILENAME:" +fileName);
                 subs = rif.GetSubcatchments();
                 lids = rif.getLIDs();
                 curves = rif.getCurves();
@@ -1340,7 +1341,7 @@ namespace SWMM2PEST
 
         private void runPestCalibrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form runFrm = new RunForm();
+            Form runFrm = new RunForm(fileName);
             runFrm.Show();
         }
     }
